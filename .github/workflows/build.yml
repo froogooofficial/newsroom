@@ -1,0 +1,24 @@
+name: Build Site
+
+on:
+  push:
+    paths:
+      - 'stories/**'
+      - 'build.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build static site
+        run: python3 build.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "newsroom-bot"
+          git config user.email "bot@newsroom"
+          git add docs/
+          git diff --staged --quiet || git commit -m "Rebuild site"
+          git push
