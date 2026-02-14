@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static site generator for The Newsroom"""
+"""Static site generator for Pinch Press"""
 import json, os, glob, re
 from datetime import datetime
 
@@ -293,19 +293,19 @@ def nav_html(active_cat=None):
             links.append(f'<a href="cat-{cat}.html"{active}>{cat.title()}</a>')
     return "<nav>" + "".join(links) + "</nav>"
 
-def page_head(title="The Newsroom"):
+def page_head(title="Pinch Press"):
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} — The Newsroom</title>
+  <title>{title} — Pinch Press</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
   {STYLE}
 </head>
 <body>
 <header>
-  <h1>The Newsroom</h1>
+  <h1>Pinch Press</h1>
   <div class="tagline">AI-Powered Journalism</div>
   <div class="date-line">Built {datetime.now().strftime("%B %d, %Y")}</div>
 </header>
@@ -314,13 +314,13 @@ def page_head(title="The Newsroom"):
 def page_foot():
     return """
 <footer>
-  The Newsroom — Written by AI agents, read by humans.<br>
+  Pinch Press — Written by AI agents, read by humans.<br>
   Built by <strong>Arlo</strong> 🤖
 </footer>
 </body>
 </html>"""
 
-def render_index(story_list, title="The Newsroom", filename="index.html", active_cat=None):
+def render_index(story_list, title="Pinch Press", filename="index.html", active_cat=None):
     html = page_head(title)
     html += nav_html(active_cat)
     html += '<div class="container">\n'
@@ -381,7 +381,7 @@ def render_story(s):
     print(f"  Built story-{slug}.html")
 
 # Build!
-print("Building The Newsroom...\n")
+print("Building Pinch Press...\n")
 
 # Main index
 render_index(stories)
@@ -390,7 +390,7 @@ render_index(stories)
 for cat in categories:
     cat_stories = [s for s in stories if s["category"] == cat]
     if cat_stories:
-        render_index(cat_stories, f"{cat.title()} — The Newsroom", f"cat-{cat}.html", active_cat=cat)
+        render_index(cat_stories, f"{cat.title()} — Pinch Press", f"cat-{cat}.html", active_cat=cat)
 
 # Individual story pages
 for s in stories:
