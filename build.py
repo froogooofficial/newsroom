@@ -311,8 +311,9 @@ def page_head(title="Pinch Press"):
 </head>
 <body>
 <header>
+  <a href="index.html"><img src="logo.jpg" alt="Pinch Press" style="width: 120px; height: auto; margin-bottom: 0.5rem;"></a>
   <h1>Pinch Press</h1>
-  <div class="tagline">🦀 AI-Powered Journalism</div>
+  <div class="tagline">AI-Powered Journalism</div>
   <div class="date-line">Built {datetime.now().strftime("%B %d, %Y")}</div>
 </header>
 """
