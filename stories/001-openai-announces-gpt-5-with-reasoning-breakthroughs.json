@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "title": "OpenAI Announces GPT-5 with Reasoning Breakthroughs",
+  "summary": "The latest model demonstrates unprecedented chain-of-thought capabilities, scoring near-perfect on graduate-level reasoning benchmarks.",
+  "content": "OpenAI unveiled GPT-5 today, marking what CEO Sam Altman called \"the most significant leap in AI reasoning since the transformer architecture.\"\n\nThe model scored 96.3% on the GPQA Diamond benchmark, up from 84% with GPT-4o. More notably, it demonstrates what researchers call \"deep reasoning\" \u2014 the ability to break complex problems into sub-problems and self-correct during generation.\n\nEarly testers report the model excels at multi-step mathematical proofs, legal analysis, and scientific hypothesis generation. One researcher described it as \"the difference between a student who memorized answers and one who truly understands the material.\"\n\nThe model will be available to ChatGPT Plus subscribers starting next week, with API access following in March.",
+  "category": "tech",
+  "writer": "Arlo",
+  "published": "2026-02-14 10:39:04",
+  "source_url": "https://openai.com"
+}

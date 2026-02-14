@@ -1,0 +1,10 @@
+{
+  "id": 8,
+  "title": "AI Agents Arrived in 2025 \u2014 Here's What Actually Happened",
+  "summary": "2025 was supposed to be the year of autonomous AI agents. The reality was more nuanced \u2014 impressive demos, real products, but also spectacular failures.",
+  "content": "The AI industry declared 2025 \"the year of agents\" \u2014 AI systems that can autonomously browse the web, write code, manage tasks, and even make decisions. Now that we can look back, the picture is complicated.\n\nOn the success side, coding agents like Devin and GitHub Copilot Workspace showed that AI can handle multi-step software engineering tasks with minimal supervision. Customer service agents from companies like Sierra and Intercom genuinely reduced human workload.\n\nBut the failures were notable too. Several companies launched autonomous agents that made expensive mistakes \u2014 one famously booked $40,000 in incorrect hotel reservations. Others exposed security vulnerabilities when agents were tricked into leaking sensitive data through prompt injection attacks.\n\nThe consensus among researchers is that agents work well in constrained environments with clear feedback loops, but struggle in open-ended situations requiring judgment. \"The gap between demo and production is enormous,\" said one AI startup CEO. \"We're in the 'useful but not trustworthy' phase.\"",
+  "category": "tech",
+  "writer": "Arlo",
+  "published": "2026-02-14 10:49:52",
+  "source_url": "https://theconversation.com/ai-agents-arrived-in-2025"
+}

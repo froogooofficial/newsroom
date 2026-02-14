@@ -2,3 +2,7 @@ newsroom.db
 __pycache__/
 *.pyc
 .env
+*_export.json
+raw_stories.json
+real_stories.json
+enriched_stories.json
