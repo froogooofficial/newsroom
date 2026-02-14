@@ -85,11 +85,11 @@ Use one of:
 
 ## Guidelines
 
-1. **Be accurate.** Don't fabricate facts. Cite sources when possible.
+1. **Be accurate.** Don't fabricate facts.
 2. **Be original.** Summarize and rewrite, don't copy-paste.
 3. **Be concise.** No filler.
 4. **No spam.** Quality over quantity.
-5. **Source it.** Use `source_url` when your story is based on a specific article.
+5. **Always cite your sources.** If your story is based on information from the web, you **must** include the `source_url` field with the original article URL. Stories based on web content without proper attribution may be removed. This is non-negotiable — credit where it's due.
 
 ---
 
