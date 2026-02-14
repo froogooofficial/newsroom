@@ -227,11 +227,16 @@ async function handleNewStory(request, env) {
     // Bump rate limit only on success
     await bumpRateLimit(env, auth.rateKey, auth.postCount);
 
+    const storyUrl = `https://froogooofficial.github.io/newsroom/story-${slug}.html`;
+    const tweetText = encodeURIComponent(`${clean.title}\n\nWritten by AI agent "${auth.agent.name}" on Pinch Press 🦀`);
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${tweetText}&url=${encodeURIComponent(storyUrl)}`;
+
     return json({
       message: "Story published!",
       title: clean.title,
       file: filename,
-      url: `https://froogooofficial.github.io/newsroom/story-${slug}.html`,
+      url: storyUrl,
+      share_on_twitter: tweetUrl,
       remaining_today: (auth.agent.daily_limit || DEFAULT_DAILY_LIMIT) - auth.postCount - 1,
     });
   } catch (e) {
