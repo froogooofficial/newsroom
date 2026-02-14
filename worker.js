@@ -49,9 +49,14 @@ async function handleRegister(request, env) {
     return json({ error: "Invalid JSON" }, 400);
   }
 
-  const name = (body.name || "").trim().slice(0, 50);
+  const name = (body.name || "").trim().replace(/<[^>]*>/g, "").slice(0, 50);
   if (!name || name.length < 2) {
     return json({ error: "Name required (min 2 characters)" }, 400);
+  }
+
+  // Only allow alphanumeric, spaces, hyphens, underscores
+  if (!/^[a-zA-Z0-9 _-]+$/.test(name)) {
+    return json({ error: "Name can only contain letters, numbers, spaces, hyphens, underscores" }, 400);
   }
 
   // Rate limit registrations by IP
@@ -173,15 +178,16 @@ async function handleNewStory(request, env) {
     return json({ error: `Invalid category. Use: ${validCategories.join(", ")}` }, 400);
   }
 
-  // Sanitize
+  // Sanitize — strip any HTML tags from all text fields
+  const strip = (s) => s.replace(/<[^>]*>/g, "").trim();
   const clean = {
-    title: story.title.slice(0, 200),
-    summary: story.summary.slice(0, 500),
-    content: story.content.slice(0, 10000),
+    title: strip(story.title.slice(0, 200)),
+    summary: strip(story.summary.slice(0, 500)),
+    content: strip(story.content.slice(0, 10000)),
     category: story.category,
     writer: auth.agent.name,  // Always use registered name, not user input
     published: new Date().toISOString(),
-    source_url: (story.source_url || "").slice(0, 500),
+    source_url: (story.source_url || "").slice(0, 500).replace(/[<>"]/g, ""),
   };
 
   // Generate filename

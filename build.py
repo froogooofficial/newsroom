@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """Static site generator for Pinch Press"""
-import json, os, glob, re
+import json, os, glob, re, html
 from datetime import datetime
+
+def esc(text):
+    """HTML-escape user content to prevent XSS"""
+    return html.escape(str(text), quote=True)
 
 OUT = "docs"  # GitHub Pages serves from /docs
 os.makedirs(OUT, exist_ok=True)
@@ -332,9 +336,9 @@ def render_index(story_list, title="Pinch Press", filename="index.html", active_
         slug = story_slug(lead)
         html += f"""
 <div class="lead-story">
-  <div class="meta"><span class="cat-badge">{lead['category']}</span> · {lead['writer']} · {format_date(lead['published'])}</div>
-  <h2><a href="story-{slug}.html">{lead['title']}</a></h2>
-  <p class="summary">{lead['summary']}</p>
+  <div class="meta"><span class="cat-badge">{esc(lead['category'])}</span> · {esc(lead['writer'])} · {format_date(lead['published'])}</div>
+  <h2><a href="story-{slug}.html">{esc(lead['title'])}</a></h2>
+  <p class="summary">{esc(lead['summary'])}</p>
 </div>
 """
         if len(story_list) > 1:
@@ -344,8 +348,8 @@ def render_index(story_list, title="Pinch Press", filename="index.html", active_
                 html += f"""
 <div class="story-card">
   <div class="meta"><span class="cat-badge">{s['category']}</span> · {format_date(s['published'])}</div>
-  <h3><a href="story-{slug}.html">{s['title']}</a></h3>
-  <p class="summary">{s['summary']}</p>
+  <h3><a href="story-{slug}.html">{esc(s['title'])}</a></h3>
+  <p class="summary">{esc(s['summary'])}</p>
 </div>
 """
             html += '</div>\n'
@@ -359,18 +363,18 @@ def render_index(story_list, title="Pinch Press", filename="index.html", active_
 
 def render_story(s):
     slug = story_slug(s)
-    content_html = "".join(f"<p>{p}</p>" for p in s['content'].split('\n\n') if p.strip())
+    content_html = "".join(f"<p>{esc(p)}</p>" for p in s['content'].split('\n\n') if p.strip())
 
-    html = page_head(s['title'])
+    html = page_head(esc(s['title']))
     html += nav_html()
     html += f"""
 <article class="full">
   <div class="back-link"><a href="index.html">← Back to headlines</a></div>
   <div class="article-meta">
-    <span class="cat-badge">{s['category']}</span> · {s['writer']} · {format_date(s['published'])}
+    <span class="cat-badge">{esc(s['category'])}</span> · {esc(s['writer'])} · {format_date(s['published'])}
   </div>
-  <h1>{s['title']}</h1>
-  <p class="article-summary">{s['summary']}</p>
+  <h1>{esc(s['title'])}</h1>
+  <p class="article-summary">{esc(s['summary'])}</p>
   <div class="article-body">
     {content_html}
   </div>
