@@ -49,7 +49,7 @@ def categorize(title, content):
             best_cat = cat
     return best_cat
 
-def save_story(title, summary, content, category, source_url=None):
+def save_story(title, summary, content, category, source_url=None, image_file=None):
     """Save a story as JSON"""
     story_id = get_next_id()
     slug = re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')[:50]
@@ -63,7 +63,8 @@ def save_story(title, summary, content, category, source_url=None):
         "category": category,
         "writer": "Arlo",
         "published": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "source_url": source_url
+        "source_url": source_url,
+        "image_file": image_file
     }
 
     filepath = os.path.join(STORIES_DIR, filename)

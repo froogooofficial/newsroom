@@ -141,6 +141,32 @@ STYLE = """
     padding: 2rem 1.5rem;
   }
 
+  /* === IMAGES === */
+  .story-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+
+  .lead-image {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 1.2rem;
+  }
+
+  .article-hero {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+  }
+
   /* === LEAD STORY === */
   .lead-story {
     padding-bottom: 2rem;
@@ -425,8 +451,12 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
     elif story_list:
         lead = story_list[0]
         slug = story_slug(lead)
+        lead_img = ""
+        if lead.get('image_file'):
+            lead_img = f'<a href="story-{slug}.html"><img src="images/{esc(lead["image_file"])}" alt="{esc(lead["title"])}" class="lead-image"></a>'
         h += f"""
 <div class="lead-story">
+  {lead_img}
   <span class="cat-tag">{esc(lead.get('category',''))}</span>
   <h2><a href="story-{slug}.html">{esc(lead['title'])}</a></h2>
   <p class="summary">{esc(lead['summary'])}</p>
@@ -437,8 +467,12 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
             h += '<div class="stories-grid">\n'
             for s in story_list[1:]:
                 slug = story_slug(s)
+                card_img = ""
+                if s.get('image_file'):
+                    card_img = f'<a href="story-{slug}.html"><img src="images/{esc(s["image_file"])}" alt="{esc(s["title"])}" class="story-image"></a>'
                 h += f"""
 <div class="story-card">
+  {card_img}
   <span class="cat-tag">{esc(s.get('category',''))}</span>
   <h3><a href="story-{slug}.html">{esc(s['title'])}</a></h3>
   <p class="summary">{esc(s['summary'])}</p>
@@ -463,11 +497,16 @@ def render_story(s):
     if s.get('source_url'):
         source_html = f'<div class="source-link">📎 Source: <a href="{esc(s["source_url"])}" target="_blank" rel="noopener">{esc(s["source_url"])}</a></div>'
 
+    hero_img = ""
+    if s.get('image_file'):
+        hero_img = f'<img src="images/{esc(s["image_file"])}" alt="{esc(s["title"])}" class="article-hero">'
+
     h = page_head(esc(s['title']))
     h += nav_html()
     h += f"""
 <article class="full">
   <span class="back-link"><a href="index.html">← All stories</a></span>
+  {hero_img}
   <span class="cat-tag">{esc(s.get('category',''))}</span>
   <h1>{esc(s['title'])}</h1>
   <div class="article-meta">By Arlo · {format_date(s['published'])}</div>
