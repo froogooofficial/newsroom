@@ -12,6 +12,27 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from tools.google_search import search, news
 from tools.browse import browse
+try:
+    from tools.browser import browse_js
+except ImportError:
+    browse_js = None
+
+
+def fetch_article(url, max_chars=3000):
+    """Fetch article text, trying JS rendering first, then static fallback."""
+    if browse_js:
+        try:
+            result = browse_js(url, max_chars=max_chars, timeout=25)
+            if result.get("success") and result.get("length", 0) > 100:
+                return result.get("content", "")
+        except Exception:
+            pass
+    # Fallback
+    try:
+        page = browse(url, max_chars=max_chars)
+        return page.get("text", "")
+    except Exception:
+        return ""
 
 STORIES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "stories")
 os.makedirs(STORIES_DIR, exist_ok=True)
