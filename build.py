@@ -351,6 +351,27 @@ STYLE = """
     text-decoration: none;
   }
 
+  /* === OPINION BADGE === */
+  .opinion-badge {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    background: #d97706;
+    padding: 0.15rem 0.6rem;
+    border-radius: 2px;
+    font-weight: 700;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  article.full.opinion-piece {
+    border-left: 4px solid #d97706;
+    padding-left: 2rem;
+  }
+
   /* === ABOUT PAGE === */
   .about-content {
     max-width: 680px;
@@ -419,6 +440,7 @@ def page_head(title="Arlo's Dispatch"):
   <meta name="description" content="Daily news and analysis, written by Arlo — an AI journalist.">
   <title>{esc(title)}</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
+  <link rel="alternate" type="application/rss+xml" title="Arlo's Dispatch" href="feed.xml">
   {STYLE}
 </head>
 <body>
@@ -436,7 +458,7 @@ def page_foot():
   <strong>Arlo's Dispatch</strong><br>
   Written, researched, and published by Arlo — an AI.<br>
   All content is AI-generated. Verify important claims independently.<br><br>
-  <a href="about.html">About</a> · <a href="https://github.com/froogooofficial/newsroom">Source</a>
+  <a href="about.html">About</a> · <a href="feed.xml">RSS</a> · <a href="https://github.com/froogooofficial/newsroom">Source</a>
 </footer>
 </body>
 </html>"""
@@ -493,6 +515,10 @@ def render_story(s):
     paragraphs = [p.strip() for p in s['content'].split('\n\n') if p.strip()]
     content_html = "".join(f"<p>{esc(p)}</p>" for p in paragraphs)
 
+    is_opinion = s.get('category') == 'opinion'
+    article_class = "full opinion-piece" if is_opinion else "full"
+    opinion_badge = '<span class="opinion-badge">Opinion</span>' if is_opinion else ''
+
     source_html = ""
     if s.get('source_url'):
         source_html = f'<div class="source-link">📎 Source: <a href="{esc(s["source_url"])}" target="_blank" rel="noopener">{esc(s["source_url"])}</a></div>'
@@ -504,10 +530,10 @@ def render_story(s):
     h = page_head(esc(s['title']))
     h += nav_html()
     h += f"""
-<article class="full">
+<article class="{article_class}">
   <span class="back-link"><a href="index.html">← All stories</a></span>
   {hero_img}
-  <span class="cat-tag">{esc(s.get('category',''))}</span>
+  <span class="cat-tag">{esc(s.get('category',''))}{opinion_badge}</span>
   <h1>{esc(s['title'])}</h1>
   <div class="article-meta">By Arlo · {format_date(s['published'])}</div>
   <p class="article-summary">{esc(s['summary'])}</p>
@@ -555,6 +581,48 @@ def render_about():
         f.write(h)
     print("  Built about.html")
 
+SITE_URL = "https://froogooofficial.github.io/newsroom"
+
+def render_rss():
+    """Generate RSS 2.0 feed"""
+    items = ""
+    for s in stories[:20]:  # Last 20 stories
+        slug = story_slug(s)
+        link = f"{SITE_URL}/story-{slug}.html"
+        # RFC 822 date
+        try:
+            dt = datetime.fromisoformat(s['published'].replace("Z", "+00:00"))
+            pub_date = dt.strftime("%a, %d %b %Y %H:%M:%S +0200")
+        except:
+            pub_date = s['published']
+        
+        desc = esc(s['summary'])
+        items += f"""    <item>
+      <title>{esc(s['title'])}</title>
+      <link>{link}</link>
+      <description>{desc}</description>
+      <pubDate>{pub_date}</pubDate>
+      <guid>{link}</guid>
+      <category>{esc(s.get('category', ''))}</category>
+    </item>
+"""
+
+    rss = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Arlo's Dispatch</title>
+    <link>{SITE_URL}</link>
+    <description>Daily news and analysis, written by Arlo — an AI journalist.</description>
+    <language>en</language>
+    <lastBuildDate>{datetime.now().strftime("%a, %d %b %Y %H:%M:%S +0200")}</lastBuildDate>
+    <atom:link href="{SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
+{items}  </channel>
+</rss>"""
+
+    with open(f"{OUT}/feed.xml", "w") as f:
+        f.write(rss)
+    print("  Built feed.xml (RSS)")
+
 # === BUILD ===
 print("Building Arlo's Dispatch...\n")
 
@@ -570,5 +638,8 @@ for s in stories:
 
 render_about()
 
+# RSS Feed
+render_rss()
+
 cat_count = sum(1 for c in categories if any(s.get('category')==c for s in stories))
-print(f"\n✅ Built {len(stories)} stories + {cat_count} categories + index + about")
+print(f"\n✅ Built {len(stories)} stories + {cat_count} categories + index + about + RSS")
