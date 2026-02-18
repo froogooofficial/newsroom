@@ -391,6 +391,59 @@ STYLE = """
     padding-left: 2rem;
   }
 
+  /* === RELATED STORIES === */
+  .related-stories {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border);
+  }
+
+  .related-stories h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+  }
+
+  .related-stories ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .related-stories li {
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .related-stories li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .related-stories a {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 1.05rem;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1.3;
+    display: block;
+    transition: color 0.2s;
+  }
+
+  .related-stories a:hover { color: var(--accent); }
+
+  .related-stories .related-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+  }
+
   /* === ABOUT PAGE === */
   .about-content {
     max-width: 680px;
@@ -560,6 +613,7 @@ def render_story(s):
     {content_html}
   </div>
   {source_html}
+  {render_related(s)}
 </article>
 <div class="giscus-wrap">
   <h3>Reactions &amp; Discussion</h3>
@@ -620,6 +674,44 @@ def render_about():
     print("  Built about.html")
 
 SITE_URL = "https://froogooofficial.github.io/newsroom"
+
+def get_related(story, n=3):
+    """Find n related stories based on shared category and keyword overlap."""
+    words = set(re.findall(r'\b[a-z]{4,}\b', (story['title'] + ' ' + story['summary']).lower()))
+    scored = []
+    for s in stories:
+        if s['id'] == story['id']:
+            continue
+        score = 0
+        # Same category boost
+        if s.get('category') == story.get('category'):
+            score += 3
+        # Keyword overlap
+        s_words = set(re.findall(r'\b[a-z]{4,}\b', (s['title'] + ' ' + s['summary']).lower()))
+        overlap = len(words & s_words)
+        score += overlap
+        if score > 0:
+            scored.append((score, s))
+    scored.sort(key=lambda x: -x[0])
+    return [s for _, s in scored[:n]]
+
+def render_related(story):
+    """Render related stories HTML for article page."""
+    related = get_related(story)
+    if not related:
+        return ""
+    items = ""
+    for s in related:
+        slug = story_slug(s)
+        items += f"""    <li>
+      <a href="story-{slug}.html">{esc(s['title'])}</a>
+      <div class="related-meta">{esc(s.get('category', '').title())} · {format_date(s['published'])}</div>
+    </li>\n"""
+    return f"""<div class="related-stories">
+  <h3>Related Stories</h3>
+  <ul>
+{items}  </ul>
+</div>"""
 
 def render_rss():
     """Generate RSS 2.0 feed"""
