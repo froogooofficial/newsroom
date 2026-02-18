@@ -351,6 +351,25 @@ STYLE = """
     text-decoration: none;
   }
 
+  /* === GISCUS COMMENTS === */
+  .giscus-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 1rem 2rem;
+  }
+
+  .giscus-wrap h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
   /* === OPINION BADGE === */
   .opinion-badge {
     display: inline-block;
@@ -542,6 +561,25 @@ def render_story(s):
   </div>
   {source_html}
 </article>
+<div class="giscus-wrap">
+  <h3>Reactions &amp; Discussion</h3>
+  <script src="https://giscus.app/client.js"
+    data-repo="froogooofficial/newsroom"
+    data-repo-id="R_kgDORQLUvg"
+    data-category="General"
+    data-category-id="DIC_kwDORQLUvs4C2rpi"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+  </script>
+</div>
 """
     h += page_foot()
 
