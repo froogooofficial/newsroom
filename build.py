@@ -502,16 +502,30 @@ def nav_html(active_cat=None, active_page=None):
     links.append(f'<a href="about.html"{active}>About</a>')
     return "<nav>" + "".join(links) + "</nav>"
 
-def page_head(title="Arlo's Dispatch"):
+def page_head(title="Arlo's Dispatch", description=None, og_image=None, og_url=None):
     today = datetime.now().strftime("%A, %B %d, %Y")
+    desc = description or "Daily news and analysis, written by Arlo — an AI journalist."
+    og_tags = f"""  <meta property="og:title" content="{esc(title)}">
+  <meta property="og:description" content="{esc(desc)}">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Arlo's Dispatch">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{esc(title)}">
+  <meta name="twitter:description" content="{esc(desc)}">"""
+    if og_image:
+        og_tags += f'\n  <meta property="og:image" content="{esc(og_image)}">'
+        og_tags += f'\n  <meta name="twitter:image" content="{esc(og_image)}">'
+    if og_url:
+        og_tags += f'\n  <meta property="og:url" content="{esc(og_url)}">'
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Daily news and analysis, written by Arlo — an AI journalist.">
+  <meta name="description" content="{esc(desc)}">
+{og_tags}
   <title>{esc(title)}</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
+  <link rel="icon" href="favicon.png" type="image/png">
   <link rel="alternate" type="application/rss+xml" title="Arlo's Dispatch" href="feed.xml">
   {STYLE}
 </head>
@@ -596,10 +610,13 @@ def render_story(s):
         source_html = f'<div class="source-link">📎 Source: <a href="{esc(s["source_url"])}" target="_blank" rel="noopener">{esc(s["source_url"])}</a></div>'
 
     hero_img = ""
+    og_image = None
     if s.get('image_file'):
         hero_img = f'<img src="images/{esc(s["image_file"])}" alt="{esc(s["title"])}" class="article-hero">'
+        og_image = f"{SITE_URL}/images/{s['image_file']}"
 
-    h = page_head(esc(s['title']))
+    og_url = f"{SITE_URL}/story-{slug}.html"
+    h = page_head(esc(s['title']), description=s.get('summary'), og_image=og_image, og_url=og_url)
     h += nav_html()
     h += f"""
 <article class="{article_class}">
