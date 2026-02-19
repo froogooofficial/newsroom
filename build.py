@@ -522,6 +522,29 @@ STYLE = """
     padding: 0;
   }
   .theme-toggle:hover { border-color: var(--text); color: var(--text); }
+
+  /* === SEARCH === */
+  .search-box { max-width: 500px; margin: 0 auto 2rem; text-align: center; }
+  .search-box input {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box input:focus { border-color: var(--accent); }
+  .search-box input::placeholder { color: var(--text-muted); }
+  .search-count {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
 </style>
 """
 
@@ -534,6 +557,8 @@ def nav_html(active_cat=None, active_page=None):
             links.append(f'<a href="cat-{cat}.html"{active}>{cat.title()}</a>')
     active = ' class="active"' if active_page == "about" else ''
     links.append(f'<a href="about.html"{active}>About</a>')
+    active_s = ' class="active"' if active_page == "search" else ''
+    links.append(f'<a href="search.html"{active_s}>🔍</a>')
     return "<nav>" + "".join(links) + "</nav>"
 
 def page_head(title="Arlo's Dispatch", description=None, og_image=None, og_url=None):
@@ -700,7 +725,7 @@ def render_story(s):
     data-reactions-enabled="1"
     data-emit-metadata="0"
     data-input-position="top"
-    data-theme="light"
+    data-theme="preferred_color_scheme"
     data-lang="en"
     data-loading="lazy"
     crossorigin="anonymous"
@@ -786,6 +811,73 @@ def render_related(story):
 {items}  </ul>
 </div>"""
 
+def render_search_index():
+    """Generate JSON index for client-side search."""
+    index = []
+    for s in stories:
+        slug = story_slug(s)
+        index.append({
+            "t": s['title'],
+            "s": s['summary'],
+            "c": s.get('category', ''),
+            "d": format_date(s['published']),
+            "u": f"story-{slug}.html",
+            "i": s.get('image_file', ''),
+        })
+    with open(f"{OUT}/search.json", "w") as f:
+        json.dump(index, f, separators=(',', ':'))
+    print("  Built search.json")
+
+def render_search_page():
+    """Build the search page with client-side JS search."""
+    h = page_head("Search — Arlo's Dispatch")
+    h += nav_html(active_page="search")
+    h += """
+<div class="container">
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search stories..." autofocus>
+    <div id="searchCount" class="search-count"></div>
+  </div>
+  <div id="searchResults" class="stories-grid"></div>
+</div>
+<script>
+let stories = [];
+fetch('search.json').then(r=>r.json()).then(d=>{stories=d;
+  const q=new URLSearchParams(location.search).get('q');
+  if(q){document.getElementById('searchInput').value=q;doSearch(q);}
+});
+
+document.getElementById('searchInput').addEventListener('input', function(){
+  doSearch(this.value);
+});
+
+function doSearch(q) {
+  const el = document.getElementById('searchResults');
+  const countEl = document.getElementById('searchCount');
+  q = q.trim().toLowerCase();
+  if (!q) { el.innerHTML=''; countEl.textContent=''; return; }
+  const words = q.split(/\\s+/);
+  const results = stories.filter(s => {
+    const text = (s.t + ' ' + s.s + ' ' + s.c).toLowerCase();
+    return words.every(w => text.includes(w));
+  });
+  countEl.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '');
+  if (!results.length) {
+    el.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:2rem;font-family:Inter,sans-serif;">No stories found.</p>';
+    return;
+  }
+  el.innerHTML = results.map(s => {
+    const img = s.i ? '<a href="'+s.u+'"><img src="images/'+s.i+'" class="story-image" alt=""></a>' : '';
+    return '<div class="story-card">'+img+'<span class="cat-tag">'+s.c+'</span><h3><a href="'+s.u+'">'+s.t+'</a></h3><p class="summary">'+s.s+'</p><div class="meta">'+s.d+'</div></div>';
+  }).join('');
+}
+</script>
+"""
+    h += page_foot()
+    with open(f"{OUT}/search.html", "w") as f:
+        f.write(h)
+    print("  Built search.html")
+
 def render_rss():
     """Generate RSS 2.0 feed"""
     items = ""
@@ -840,6 +932,10 @@ for s in stories:
     render_story(s)
 
 render_about()
+
+# Search
+render_search_index()
+render_search_page()
 
 # RSS Feed
 render_rss()
