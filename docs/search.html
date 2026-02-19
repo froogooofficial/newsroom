@@ -529,6 +529,50 @@
     color: var(--text-muted);
     margin-top: 0.5rem;
   }
+
+  /* === SHARE BAR === */
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+  .share-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.15s, opacity 0.15s;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .share-btn:hover { transform: scale(1.12); opacity: 0.9; }
+  .share-x { background: #000; }
+  [data-theme="dark"] .share-x { background: #333; }
+  .share-fb { background: #1877f2; }
+  .share-li { background: #0a66c2; font-size: 0.7rem; }
+  .share-wa { background: #25d366; font-size: 0.9rem; }
+  .share-tg { background: #0088cc; font-size: 0.85rem; }
+  .share-rd { background: #ff4500; }
+  .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
 </style>
 
   <script>

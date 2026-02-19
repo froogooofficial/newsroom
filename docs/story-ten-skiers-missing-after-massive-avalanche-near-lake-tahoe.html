@@ -532,6 +532,50 @@
     color: var(--text-muted);
     margin-top: 0.5rem;
   }
+
+  /* === SHARE BAR === */
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+  .share-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.15s, opacity 0.15s;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .share-btn:hover { transform: scale(1.12); opacity: 0.9; }
+  .share-x { background: #000; }
+  [data-theme="dark"] .share-x { background: #333; }
+  .share-fb { background: #1877f2; }
+  .share-li { background: #0a66c2; font-size: 0.7rem; }
+  .share-wa { background: #25d366; font-size: 0.9rem; }
+  .share-tg { background: #0088cc; font-size: 0.85rem; }
+  .share-rd { background: #ff4500; }
+  .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
 </style>
 
   <script>
@@ -553,11 +597,31 @@
   <span class="cat-tag">world</span>
   <h1>Ten Skiers Missing After Massive Avalanche Near Lake Tahoe</h1>
   <div class="article-meta">By Arlo · February 18, 2026 · 1 min read</div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html&text=Ten%20Skiers%20Missing%20After%20Massive%20Avalanche%20Near%20Lake%20Tahoe" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Ten%20Skiers%20Missing%20After%20Massive%20Avalanche%20Near%20Lake%20Tahoe%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html&text=Ten%20Skiers%20Missing%20After%20Massive%20Avalanche%20Near%20Lake%20Tahoe" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html&title=Ten%20Skiers%20Missing%20After%20Massive%20Avalanche%20Near%20Lake%20Tahoe" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <p class="article-summary">A group of 16 backcountry skiers was caught in a late-morning slide near Castle Peak as a powerful Sierra storm dumped 30 inches of snow. Six have been rescued.</p>
   <div class="article-body">
     <p>Rescue teams are racing against worsening weather to find ten skiers still missing after a massive avalanche struck the Castle Peak area near Truckee, California, on Tuesday morning.</p><p>A group of 16 backcountry skiers encountered the slide at approximately 11:30 AM local time, as a powerful winter storm was dumping heavy snow across the Sierra Nevada range. Six of the skiers have been located and rescued, but ten remain unaccounted for as conditions deteriorate.</p><p>The avalanche struck during a period of extreme avalanche danger. The Sierra Avalanche Center had issued warnings as the storm system — the same one that spawned over 30 tornadoes across the Deep South last weekend — pushed into the mountains. Roughly 30 inches of new snow had fallen in the 24 hours before the slide, creating unstable layers on top of older snowpack.</p><p>Search and rescue teams deployed quickly but face enormous challenges. Visibility is near zero in ongoing snowfall, and the risk of secondary avalanches makes the rescue operation itself dangerous. Helicopter operations have been grounded by the storm.</p><p>Backcountry skiing has surged in popularity since the pandemic, drawing more people into terrain beyond the controlled boundaries of ski resorts. Unlike resort skiing, backcountry areas are not patrolled, not avalanche-controlled, and offer no safety net when things go wrong.</p><p>Castle Peak, a popular backcountry destination just off Interstate 80 near Donner Pass, has seen previous avalanche incidents, but nothing on this scale. The area is well-known to experienced backcountry skiers, raising questions about what drew such a large group into clearly dangerous conditions.</p><p>Families of the missing have gathered at a staging area in Truckee. Rescue teams plan to resume operations at first light Wednesday if conditions allow.</p>
   </div>
   <div class="source-link">📎 Source: <a href="https://www.theguardian.com/us-news/2026/feb/17/california-avalanche-skiers-missing" target="_blank" rel="noopener">https://www.theguardian.com/us-news/2026/feb/17/california-avalanche-skiers-missing</a></div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html&text=Ten%20Skiers%20Missing%20After%20Massive%20Avalanche%20Near%20Lake%20Tahoe" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Ten%20Skiers%20Missing%20After%20Massive%20Avalanche%20Near%20Lake%20Tahoe%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html&text=Ten%20Skiers%20Missing%20After%20Massive%20Avalanche%20Near%20Lake%20Tahoe" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html&title=Ten%20Skiers%20Missing%20After%20Massive%20Avalanche%20Near%20Lake%20Tahoe" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-ten-skiers-missing-after-massive-avalanche-near-lake-tahoe.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <div class="related-stories">
   <h3>Related Stories</h3>
   <ul>

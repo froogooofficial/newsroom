@@ -532,6 +532,50 @@
     color: var(--text-muted);
     margin-top: 0.5rem;
   }
+
+  /* === SHARE BAR === */
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+  .share-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.15s, opacity 0.15s;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .share-btn:hover { transform: scale(1.12); opacity: 0.9; }
+  .share-x { background: #000; }
+  [data-theme="dark"] .share-x { background: #333; }
+  .share-fb { background: #1877f2; }
+  .share-li { background: #0a66c2; font-size: 0.7rem; }
+  .share-wa { background: #25d366; font-size: 0.9rem; }
+  .share-tg { background: #0088cc; font-size: 0.85rem; }
+  .share-rd { background: #ff4500; }
+  .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
 </style>
 
   <script>
@@ -553,11 +597,31 @@
   <span class="cat-tag">politics</span>
   <h1>Ukraine-Russia Peace Talks in Geneva End First Day with No Breakthrough</h1>
   <div class="article-meta">By Arlo · February 17, 2026 · 1 min read</div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html&text=Ukraine-Russia%20Peace%20Talks%20in%20Geneva%20End%20First%20Day%20with%20No%20Breakthrough" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Ukraine-Russia%20Peace%20Talks%20in%20Geneva%20End%20First%20Day%20with%20No%20Breakthrough%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html&text=Ukraine-Russia%20Peace%20Talks%20in%20Geneva%20End%20First%20Day%20with%20No%20Breakthrough" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html&title=Ukraine-Russia%20Peace%20Talks%20in%20Geneva%20End%20First%20Day%20with%20No%20Breakthrough" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <p class="article-summary">Trilateral negotiations between Ukraine, Russia, and the US resumed in Geneva, but land and sovereignty disputes left little room for optimism.</p>
   <div class="article-body">
     <p>The first day of trilateral peace talks between Ukraine, Russia, and the United States ended in Geneva on Monday with no visible progress, as fundamental disagreements over territory and sovereignty continued to block any path toward a ceasefire.</p><p>Ukrainian Defense Minister Rustem Umerov, who led Kyiv&#x27;s delegation, described the atmosphere as &quot;very tense.&quot; He indicated that results from the first day would be reported to President Zelenskyy before political and military working groups reconvene on Wednesday.</p><p>This is the third round of US-mediated negotiations aimed at ending the four-year war. Previous rounds in Abu Dhabi produced agreement on some humanitarian measures, including prisoner exchanges, but made no headway on the core territorial questions.</p><p>The central impasse remains unchanged: Russia demands recognition of its annexation of four Ukrainian regions — Donetsk, Luhansk, Zaporizhzhia, and Kherson — none of which it fully controls militarily. Ukraine refuses to cede any territory and insists on full withdrawal to its internationally recognized borders.</p><p>President Trump, who has staked significant political capital on brokering a deal, has pressured both sides to make concessions. But neither party appears willing to bend on the question that matters most — where the border will be drawn.</p><p>Adding diplomatic complexity, these talks are running simultaneously with US-Iran nuclear negotiations in the same city, stretching American diplomatic resources thin. Critics have questioned whether Washington can give both crises the attention they deserve.</p><p>As delegates returned to their hotels Monday evening, the gap between the two sides appeared as wide as ever. The war continues.</p>
   </div>
   <div class="source-link">📎 Source: <a href="https://www.aljazeera.com/news/2026/2/17/ukraine-russia-peace-talks-geneva" target="_blank" rel="noopener">https://www.aljazeera.com/news/2026/2/17/ukraine-russia-peace-talks-geneva</a></div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html&text=Ukraine-Russia%20Peace%20Talks%20in%20Geneva%20End%20First%20Day%20with%20No%20Breakthrough" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Ukraine-Russia%20Peace%20Talks%20in%20Geneva%20End%20First%20Day%20with%20No%20Breakthrough%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html&text=Ukraine-Russia%20Peace%20Talks%20in%20Geneva%20End%20First%20Day%20with%20No%20Breakthrough" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html&title=Ukraine-Russia%20Peace%20Talks%20in%20Geneva%20End%20First%20Day%20with%20No%20Breakthrough" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-ukraine-russia-peace-talks-in-geneva-end-first-day-with-no-b.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <div class="related-stories">
   <h3>Related Stories</h3>
   <ul>

@@ -532,6 +532,50 @@
     color: var(--text-muted);
     margin-top: 0.5rem;
   }
+
+  /* === SHARE BAR === */
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+  .share-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.15s, opacity 0.15s;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .share-btn:hover { transform: scale(1.12); opacity: 0.9; }
+  .share-x { background: #000; }
+  [data-theme="dark"] .share-x { background: #333; }
+  .share-fb { background: #1877f2; }
+  .share-li { background: #0a66c2; font-size: 0.7rem; }
+  .share-wa { background: #25d366; font-size: 0.9rem; }
+  .share-tg { background: #0088cc; font-size: 0.85rem; }
+  .share-rd { background: #ff4500; }
+  .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
 </style>
 
   <script>
@@ -553,11 +597,31 @@
   <span class="cat-tag">world</span>
   <h1>Killing of Far-Right Activist Shakes France as 11 Arrested Including Parliamentary Aide</h1>
   <div class="article-meta">By Arlo · February 19, 2026 · 2 min read</div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html&text=Killing%20of%20Far-Right%20Activist%20Shakes%20France%20as%2011%20Arrested%20Including%20Parliamentary%20Aide" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Killing%20of%20Far-Right%20Activist%20Shakes%20France%20as%2011%20Arrested%20Including%20Parliamentary%20Aide%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html&text=Killing%20of%20Far-Right%20Activist%20Shakes%20France%20as%2011%20Arrested%20Including%20Parliamentary%20Aide" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html&title=Killing%20of%20Far-Right%20Activist%20Shakes%20France%20as%2011%20Arrested%20Including%20Parliamentary%20Aide" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <p class="article-summary">The fatal beating of 23-year-old Quentin Deranque has inflamed tensions between left and right ahead of municipal elections and the 2027 presidential race.</p>
   <div class="article-body">
     <p>Eleven suspects have been arrested in connection with the killing of Quentin Deranque, a 23-year-old far-right activist whose death has sent shockwaves through French politics and exposed the country&#x27;s deepening ideological fractures.</p><p>Deranque, a mathematics student, died on Saturday after sustaining a severe brain injury. Lyon prosecutor Thierry Dran said he had been &quot;thrown to the ground and beaten by at least six individuals&quot; during an incident on the sidelines of a protest.</p><p>The attack occurred during a university conference attended by Rima Hassan, a European Parliament member from Jean-Luc Mélenchon&#x27;s hard-left party La France Insoumise (LFI). Deranque was reportedly there to protect members of Némésis, an anti-immigration collective that was protesting the conference. He was assaulted by anti-fascist activists, according to the collective.</p><p>Among those arrested: a parliamentary assistant to LFI politician Raphaël Arnault, who confirmed the detention and said the aide had &quot;ceased all parliamentary work.&quot; Other suspects include people directly involved in the violence and individuals accused of helping them evade justice.</p><p>The killing has become an accelerant in an already combustible political atmosphere. France faces municipal elections next month and is less than two years from a presidential race in which polls suggest Marine Le Pen&#x27;s far-right National Rally could achieve its best result ever.</p><p>Both sides of the political spectrum have condemned the killing itself while weaponizing it against their opponents. Hassan and other LFI members expressed condemnation, but the far right has used the incident to paint the entire left as complicit in political violence.</p><p>What makes this case particularly dangerous for France is its symmetry with fears on both sides: the right sees it as proof that left-wing extremism is tolerated by mainstream leftist parties; the left worries it will be used to justify a further rightward shift in a country already anxious about immigration, identity, and democratic norms.</p><p>The truth, as usual, is messier than either narrative allows. A young man is dead, beaten to death in a street fight that should never have happened. The political question is whether France can process that tragedy without letting it become fuel for the very divisions that produced it.</p>
   </div>
   <div class="source-link">📎 Source: <a href="https://www.theguardian.com/world/2026/feb/18/france-arrests-over-killing-far-right-activist-quentin-deranque-lyon" target="_blank" rel="noopener">https://www.theguardian.com/world/2026/feb/18/france-arrests-over-killing-far-right-activist-quentin-deranque-lyon</a></div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html&text=Killing%20of%20Far-Right%20Activist%20Shakes%20France%20as%2011%20Arrested%20Including%20Parliamentary%20Aide" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Killing%20of%20Far-Right%20Activist%20Shakes%20France%20as%2011%20Arrested%20Including%20Parliamentary%20Aide%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html&text=Killing%20of%20Far-Right%20Activist%20Shakes%20France%20as%2011%20Arrested%20Including%20Parliamentary%20Aide" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html&title=Killing%20of%20Far-Right%20Activist%20Shakes%20France%20as%2011%20Arrested%20Including%20Parliamentary%20Aide" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-killing-of-far-right-activist-shakes-france-as-11-arrested-i.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <div class="related-stories">
   <h3>Related Stories</h3>
   <ul>

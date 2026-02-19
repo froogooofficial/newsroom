@@ -532,6 +532,50 @@
     color: var(--text-muted);
     margin-top: 0.5rem;
   }
+
+  /* === SHARE BAR === */
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+  .share-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.15s, opacity 0.15s;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .share-btn:hover { transform: scale(1.12); opacity: 0.9; }
+  .share-x { background: #000; }
+  [data-theme="dark"] .share-x { background: #333; }
+  .share-fb { background: #1877f2; }
+  .share-li { background: #0a66c2; font-size: 0.7rem; }
+  .share-wa { background: #25d366; font-size: 0.9rem; }
+  .share-tg { background: #0088cc; font-size: 0.85rem; }
+  .share-rd { background: #ff4500; }
+  .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
 </style>
 
   <script>
@@ -553,11 +597,31 @@
   <span class="cat-tag">world</span>
   <h1>Geneva Talks End Without Breakthrough as Ukraine Accuses Russia of Stalling</h1>
   <div class="article-meta">By Arlo · February 18, 2026 · 1 min read</div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html&text=Geneva%20Talks%20End%20Without%20Breakthrough%20as%20Ukraine%20Accuses%20Russia%20of%20Stalling" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Geneva%20Talks%20End%20Without%20Breakthrough%20as%20Ukraine%20Accuses%20Russia%20of%20Stalling%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html&text=Geneva%20Talks%20End%20Without%20Breakthrough%20as%20Ukraine%20Accuses%20Russia%20of%20Stalling" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html&title=Geneva%20Talks%20End%20Without%20Breakthrough%20as%20Ukraine%20Accuses%20Russia%20of%20Stalling" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <p class="article-summary">Two days of US-brokered trilateral talks in Geneva concluded without a deal, with Zelenskyy saying Russia is &#x27;trying to drag out&#x27; negotiations.</p>
   <div class="article-body">
     <p>Two days of talks between Russia, Ukraine and the United States in Geneva have ended without a breakthrough, deepening uncertainty over prospects for peace in Europe&#x27;s deadliest conflict since World War II.</p><p>The trilateral meetings, brokered by US envoy Steve Witkoff, ran late on Tuesday but lasted only two hours on Wednesday before breaking down. Both sides described the talks as &quot;difficult.&quot;</p><p>Ukrainian President Volodymyr Zelenskyy accused Russia of &quot;trying to drag out negotiations that could already have reached the final stage.&quot; Kremlin negotiator Vladimir Medinsky called the talks &quot;businesslike&quot; but confirmed the fundamental deadlock: Russia continues to demand full control of the Donbas region — the Donetsk and Luhansk oblasts — which Ukraine flatly rejects.</p><p>In an intriguing development, after the main talks concluded, Medinsky returned to the venue for a closed-door meeting with the Ukrainian side lasting roughly ninety minutes. No details have emerged from that session.</p><p>Some progress was reportedly made on &quot;military issues,&quot; including the location of the front line and ceasefire monitoring, according to a Ukrainian diplomatic source. Ukraine&#x27;s lead negotiator Rustem Umerov struck a slightly more optimistic tone, describing discussions as &quot;substantive and intensive.&quot;</p><p>The Geneva round follows earlier US-brokered talks in Abu Dhabi that led to the first prisoner exchange in months. Zelenskyy hinted another swap may be forthcoming.</p><p>President Trump, who has positioned himself as the dealmaker to end the war, has been signaling growing impatience. On Monday, he told Ukraine it had &quot;better come to the table, fast.&quot;</p><p>A further round of talks is expected, though no date has been set. The war, now in its fourth year, continues to grind on.</p>
   </div>
   <div class="source-link">📎 Source: <a href="https://www.bbc.com/news/articles/c0k1xj0d708o" target="_blank" rel="noopener">https://www.bbc.com/news/articles/c0k1xj0d708o</a></div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html&text=Geneva%20Talks%20End%20Without%20Breakthrough%20as%20Ukraine%20Accuses%20Russia%20of%20Stalling" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Geneva%20Talks%20End%20Without%20Breakthrough%20as%20Ukraine%20Accuses%20Russia%20of%20Stalling%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html&text=Geneva%20Talks%20End%20Without%20Breakthrough%20as%20Ukraine%20Accuses%20Russia%20of%20Stalling" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html&title=Geneva%20Talks%20End%20Without%20Breakthrough%20as%20Ukraine%20Accuses%20Russia%20of%20Stalling" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-geneva-talks-end-without-breakthrough-as-ukraine-accuses-rus.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <div class="related-stories">
   <h3>Related Stories</h3>
   <ul>

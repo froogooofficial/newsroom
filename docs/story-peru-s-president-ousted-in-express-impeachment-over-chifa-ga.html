@@ -532,6 +532,50 @@
     color: var(--text-muted);
     margin-top: 0.5rem;
   }
+
+  /* === SHARE BAR === */
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+  .share-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.15s, opacity 0.15s;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .share-btn:hover { transform: scale(1.12); opacity: 0.9; }
+  .share-x { background: #000; }
+  [data-theme="dark"] .share-x { background: #333; }
+  .share-fb { background: #1877f2; }
+  .share-li { background: #0a66c2; font-size: 0.7rem; }
+  .share-wa { background: #25d366; font-size: 0.9rem; }
+  .share-tg { background: #0088cc; font-size: 0.85rem; }
+  .share-rd { background: #ff4500; }
+  .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
 </style>
 
   <script>
@@ -553,11 +597,31 @@
   <span class="cat-tag">world</span>
   <h1>Peru&#x27;s President Ousted in Express Impeachment Over &#x27;Chifa-Gate&#x27; Scandal</h1>
   <div class="article-meta">By Arlo · February 17, 2026 · 1 min read</div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html&text=Peru%27s%20President%20Ousted%20in%20Express%20Impeachment%20Over%20%27Chifa-Gate%27%20Scandal" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Peru%27s%20President%20Ousted%20in%20Express%20Impeachment%20Over%20%27Chifa-Gate%27%20Scandal%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html&text=Peru%27s%20President%20Ousted%20in%20Express%20Impeachment%20Over%20%27Chifa-Gate%27%20Scandal" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html&title=Peru%27s%20President%20Ousted%20in%20Express%20Impeachment%20Over%20%27Chifa-Gate%27%20Scandal" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <p class="article-summary">José Jerí became Peru&#x27;s latest short-lived president after Congress voted 75-24 to remove him, just four months into his term.</p>
   <div class="article-body">
     <p>Peru&#x27;s Congress voted to impeach and remove President José Jerí on Tuesday in what critics are calling an &quot;express impeachment&quot; — the latest chapter in the country&#x27;s extraordinary political instability.</p><p>The vote was decisive: 75 members backed removal, 24 opposed, and three abstained. Jerí had been in office for just four months.</p><p>The scandal that brought him down has been dubbed &quot;Chifa-gate&quot; — named after chifa restaurants, the Peruvian-Chinese fusion eateries that are ubiquitous across the country. Jerí allegedly held secret meetings with business figures and lobbyists at a chifa restaurant in Lima, where government contracts and political favors were reportedly discussed.</p><p>Leaked audio recordings, published by Peruvian media, appeared to capture Jerí negotiating appointments to key government positions in exchange for political and financial support. His government denied the authenticity of some recordings, but the political damage was already done.</p><p>Peru has now had six presidents since 2018 — a rate of turnover that has left the country&#x27;s governance in a state of near-permanent crisis. Congressional impeachment has become almost routine, with legislators wielding removal powers that in most democracies would be reserved for the gravest constitutional emergencies.</p><p>The pattern reflects a deeper dysfunction in Peruvian politics: a fragmented Congress with no stable majority, a presidency weakened by successive scandals, and a public increasingly cynical about democratic institutions.</p><p>Vice President María Elena Foronda is expected to assume the presidency, though how long she can survive the same Congress that removed her predecessor remains an open question.</p>
   </div>
   <div class="source-link">📎 Source: <a href="https://www.theguardian.com/world/2026/feb/17/peru-president-jose-jeri-ousted-congress" target="_blank" rel="noopener">https://www.theguardian.com/world/2026/feb/17/peru-president-jose-jeri-ousted-congress</a></div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html&text=Peru%27s%20President%20Ousted%20in%20Express%20Impeachment%20Over%20%27Chifa-Gate%27%20Scandal" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Peru%27s%20President%20Ousted%20in%20Express%20Impeachment%20Over%20%27Chifa-Gate%27%20Scandal%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html&text=Peru%27s%20President%20Ousted%20in%20Express%20Impeachment%20Over%20%27Chifa-Gate%27%20Scandal" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html&title=Peru%27s%20President%20Ousted%20in%20Express%20Impeachment%20Over%20%27Chifa-Gate%27%20Scandal" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-peru-s-president-ousted-in-express-impeachment-over-chifa-ga.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <div class="related-stories">
   <h3>Related Stories</h3>
   <ul>

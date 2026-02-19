@@ -532,6 +532,50 @@
     color: var(--text-muted);
     margin-top: 0.5rem;
   }
+
+  /* === SHARE BAR === */
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+  .share-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.15s, opacity 0.15s;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .share-btn:hover { transform: scale(1.12); opacity: 0.9; }
+  .share-x { background: #000; }
+  [data-theme="dark"] .share-x { background: #333; }
+  .share-fb { background: #1877f2; }
+  .share-li { background: #0a66c2; font-size: 0.7rem; }
+  .share-wa { background: #25d366; font-size: 0.9rem; }
+  .share-tg { background: #0088cc; font-size: 0.85rem; }
+  .share-rd { background: #ff4500; }
+  .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
 </style>
 
   <script>
@@ -553,11 +597,31 @@
   <span class="cat-tag">world</span>
   <h1>Eight Skiers Found Dead in California&#x27;s Deadliest Avalanche in Nearly 50 Years</h1>
   <div class="article-meta">By Arlo · February 19, 2026 · 1 min read</div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html&text=Eight%20Skiers%20Found%20Dead%20in%20California%27s%20Deadliest%20Avalanche%20in%20Nearly%2050%20Years" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Eight%20Skiers%20Found%20Dead%20in%20California%27s%20Deadliest%20Avalanche%20in%20Nearly%2050%20Years%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html&text=Eight%20Skiers%20Found%20Dead%20in%20California%27s%20Deadliest%20Avalanche%20in%20Nearly%2050%20Years" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html&title=Eight%20Skiers%20Found%20Dead%20in%20California%27s%20Deadliest%20Avalanche%20in%20Nearly%2050%20Years" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <p class="article-summary">Bodies recovered near Castle Peak as sheriff says the guided group had &#x27;little time to react.&#x27; One person remains missing. Investigation into decision to proceed despite storm forecast.</p>
   <div class="article-body">
     <p>Eight of the nine missing backcountry skiers have been found dead near Castle Peak in California&#x27;s Sierra Nevada, making this the nation&#x27;s deadliest avalanche in nearly half a century.</p><p>The bodies were recovered fairly close together, according to Captain Russell Greene of the Nevada County Sheriff&#x27;s Office. &quot;Someone saw the avalanche, yelled avalanche, and it overtook them rather quickly,&quot; Greene said. The dead and missing include seven women and two men, ranging in age from 30 to 55. Three of the victims were guides.</p><p>One person remains unaccounted for. The mission has officially transitioned from rescue to recovery.</p><p>The avalanche struck at approximately 11:30am on Tuesday during the second day of a three-day guided backcountry skiing trek, as a severe winter storm battered northern California. Three to six feet of snow had fallen since the group set out on Sunday. Subfreezing temperatures and gale-force winds created what the Sierra Avalanche Center described as an &quot;unstable and unpredictable&quot; snowpack.</p><p>Six survivors — including one guide — constructed a makeshift shelter and used beacons and a cellphone to signal rescuers, who reached them just before sunset on Tuesday. Two were hospitalized.</p><p>Nevada County Sheriff Shannan Moon said investigators would examine the decision to proceed with the trip despite forecasts calling for relentless weather. That question will loom large in the coming weeks: who authorized a group of 15 people, mostly paying clients, to venture into avalanche-prone terrain during one of the worst storms the region has seen in years?</p><p>Crews have not yet been able to remove the victims from the mountain due to ongoing extreme conditions. The Sierra Avalanche Center warned that further avalanche risk remained elevated across the area.</p><p>If the final missing skier is confirmed dead, the disaster would claim nine lives — a toll not seen from a single US avalanche since 1982.</p>
   </div>
   <div class="source-link">📎 Source: <a href="https://www.npr.org/2026/02/18/nx-s1-5718550/backcountry-skiers-still-missing-california-avalanche" target="_blank" rel="noopener">https://www.npr.org/2026/02/18/nx-s1-5718550/backcountry-skiers-still-missing-california-avalanche</a></div>
+  <div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html&text=Eight%20Skiers%20Found%20Dead%20in%20California%27s%20Deadliest%20Avalanche%20in%20Nearly%2050%20Years" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text=Eight%20Skiers%20Found%20Dead%20in%20California%27s%20Deadliest%20Avalanche%20in%20Nearly%2050%20Years%20https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html&text=Eight%20Skiers%20Found%20Dead%20in%20California%27s%20Deadliest%20Avalanche%20in%20Nearly%2050%20Years" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url=https%3A%2F%2Ffroogooofficial.github.io%2Fnewsroom%2Fstory-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html&title=Eight%20Skiers%20Found%20Dead%20in%20California%27s%20Deadliest%20Avalanche%20in%20Nearly%2050%20Years" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('https://froogooofficial.github.io/newsroom/story-eight-skiers-found-dead-in-california-s-deadliest-avalanche-.html');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>
   <div class="related-stories">
   <h3>Related Stories</h3>
   <ul>

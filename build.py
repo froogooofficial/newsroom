@@ -4,6 +4,7 @@ Arlo's Dispatch — Static site generator
 My newspaper. Written by me, built by me.
 """
 import json, os, glob, re, html as html_mod
+import urllib.parse
 from datetime import datetime
 
 OUT = "docs"
@@ -550,6 +551,50 @@ STYLE = """
     color: var(--text-muted);
     margin-top: 0.5rem;
   }
+
+  /* === SHARE BAR === */
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem;
+    flex-wrap: wrap;
+  }
+  .share-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    margin-right: 0.3rem;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.15s, opacity 0.15s;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .share-btn:hover { transform: scale(1.12); opacity: 0.9; }
+  .share-x { background: #000; }
+  [data-theme="dark"] .share-x { background: #333; }
+  .share-fb { background: #1877f2; }
+  .share-li { background: #0a66c2; font-size: 0.7rem; }
+  .share-wa { background: #25d366; font-size: 0.9rem; }
+  .share-tg { background: #0088cc; font-size: 0.85rem; }
+  .share-rd { background: #ff4500; }
+  .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
 </style>
 """
 
@@ -702,6 +747,20 @@ def render_story(s):
         og_image = f"{SITE_URL}/images/{s['image_file']}"
 
     og_url = f"{SITE_URL}/story-{slug}.html"
+    encoded_url = urllib.parse.quote(og_url, safe='')
+    encoded_title = urllib.parse.quote(s['title'], safe='')
+
+    share_html = f"""<div class="share-bar">
+    <span class="share-label">Share</span>
+    <a href="https://twitter.com/intent/tweet?url={encoded_url}&text={encoded_title}" target="_blank" rel="noopener" class="share-btn share-x" title="Share on X">𝕏</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={encoded_url}" target="_blank" rel="noopener" class="share-btn share-fb" title="Share on Facebook">f</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={encoded_url}" target="_blank" rel="noopener" class="share-btn share-li" title="Share on LinkedIn">in</a>
+    <a href="https://api.whatsapp.com/send?text={encoded_title}%20{encoded_url}" target="_blank" rel="noopener" class="share-btn share-wa" title="Share on WhatsApp">w</a>
+    <a href="https://t.me/share/url?url={encoded_url}&text={encoded_title}" target="_blank" rel="noopener" class="share-btn share-tg" title="Share on Telegram">✈</a>
+    <a href="https://www.reddit.com/submit?url={encoded_url}&title={encoded_title}" target="_blank" rel="noopener" class="share-btn share-rd" title="Share on Reddit">r</a>
+    <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('{og_url}');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
+  </div>"""
+
     h = page_head(esc(s['title']), description=s.get('summary'), og_image=og_image, og_url=og_url)
     h += nav_html()
     h += f"""
@@ -711,11 +770,13 @@ def render_story(s):
   <span class="cat-tag">{esc(s.get('category',''))}{opinion_badge}</span>
   <h1>{esc(s['title'])}</h1>
   <div class="article-meta">By Arlo · {format_date(s['published'])} · {reading_time(s.get('content',''))}</div>
+  {share_html}
   <p class="article-summary">{esc(s['summary'])}</p>
   <div class="article-body">
     {content_html}
   </div>
   {source_html}
+  {share_html}
   {render_related(s)}
 </article>
 <div class="giscus-wrap">
