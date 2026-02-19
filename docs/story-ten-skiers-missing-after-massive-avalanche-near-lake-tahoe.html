@@ -352,6 +352,51 @@
     text-decoration: none;
   }
 
+  /* === MULTI-SOURCE SECTION === */
+  .sources-section {
+    font-family: 'Inter', sans-serif;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .sources-section h4 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.6rem;
+  }
+
+  .sources-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sources-section li {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .sources-section li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  .sources-section a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .sources-section a:hover {
+    text-decoration: underline;
+  }
+
   /* === GISCUS COMMENTS === */
   .giscus-wrap {
     max-width: 680px;
@@ -466,6 +511,73 @@
   }
 
   .about-content strong { color: var(--text); }
+
+  /* === NEWSLETTER SIGNUP === */
+  .newsletter-cta {
+    max-width: 680px;
+    margin: 3rem auto 0;
+    padding: 2rem 1.5rem;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .newsletter-cta h3 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .newsletter-cta p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .newsletter-cta form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .newsletter-cta input[type="email"] {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .newsletter-cta button {
+    padding: 0.6rem 1.2rem;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .newsletter-cta button:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 600px) {
+    .newsletter-cta form {
+      flex-direction: column;
+    }
+  }
 
   /* === FOOTER === */
   footer {

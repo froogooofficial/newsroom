@@ -388,6 +388,51 @@ STYLE = """
     text-decoration: none;
   }
 
+  /* === MULTI-SOURCE SECTION === */
+  .sources-section {
+    font-family: 'Inter', sans-serif;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .sources-section h4 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.6rem;
+  }
+
+  .sources-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sources-section li {
+    font-size: 0.8rem;
+    margin-bottom: 0.3rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .sources-section li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  .sources-section a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .sources-section a:hover {
+    text-decoration: underline;
+  }
+
   /* === GISCUS COMMENTS === */
   .giscus-wrap {
     max-width: 680px;
@@ -502,6 +547,73 @@ STYLE = """
   }
 
   .about-content strong { color: var(--text); }
+
+  /* === NEWSLETTER SIGNUP === */
+  .newsletter-cta {
+    max-width: 680px;
+    margin: 3rem auto 0;
+    padding: 2rem 1.5rem;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .newsletter-cta h3 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .newsletter-cta p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    margin-bottom: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .newsletter-cta form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .newsletter-cta input[type="email"] {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .newsletter-cta button {
+    padding: 0.6rem 1.2rem;
+    background: var(--text);
+    color: var(--bg);
+    border: none;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .newsletter-cta button:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 600px) {
+    .newsletter-cta form {
+      flex-direction: column;
+    }
+  }
 
   /* === FOOTER === */
   footer {
@@ -1038,6 +1150,37 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
 """
             h += '</div>\n'
 
+    # Newsletter CTA (only on main index)
+    if filename == "index.html":
+        h += """
+<div class="newsletter-cta">
+  <h3>Get the Dispatch in your inbox</h3>
+  <p>Morning and evening editions, delivered daily. No spam — just news with a perspective you won't find anywhere else.</p>
+  <form id="newsletter-form" onsubmit="return handleSubscribe(event)">
+    <input type="email" id="nl-email" placeholder="your@email.com" required>
+    <button type="submit">Subscribe</button>
+  </form>
+  <p id="nl-thanks" style="display:none; color:var(--accent); font-weight:600; margin-top:0.5rem;">Thanks! You're on the list. ✓</p>
+</div>
+<script>
+function handleSubscribe(e) {
+  e.preventDefault();
+  var email = document.getElementById('nl-email').value;
+  var btn = e.target.querySelector('button');
+  btn.textContent = 'Subscribing...';
+  // Store locally + send via beacon
+  var subs = JSON.parse(localStorage.getItem('dispatch_subs') || '[]');
+  subs.push({email: email, date: new Date().toISOString()});
+  localStorage.setItem('dispatch_subs', JSON.stringify(subs));
+  // Send to our collector endpoint
+  navigator.sendBeacon && navigator.sendBeacon('https://script.google.com/macros/s/PLACEHOLDER/exec', JSON.stringify({email: email}));
+  document.getElementById('newsletter-form').style.display = 'none';
+  document.getElementById('nl-thanks').style.display = 'block';
+  return false;
+}
+</script>
+"""
+
     h += '</div>\n'
     h += page_foot()
 
@@ -1073,7 +1216,17 @@ def render_story(s):
         special_badge = f'<span class="opinion-badge" style="background:{badge_bg}">{info["icon"]} {info["name"]}</span>'
 
     source_html = ""
-    if s.get('source_url'):
+    # Support multiple sources (list of {name, url}) or single source_url
+    if s.get('sources') and isinstance(s['sources'], list):
+        source_items = ""
+        for src in s['sources']:
+            name = src.get('name', src.get('url', ''))
+            url = src.get('url', '')
+            if url:
+                source_items += f'<li><a href="{esc(url)}" target="_blank" rel="noopener">{esc(name)}</a></li>\n'
+        if source_items:
+            source_html = f'<div class="sources-section"><h4>📎 Sources</h4><ul>{source_items}</ul></div>'
+    elif s.get('source_url'):
         source_html = f'<div class="source-link">📎 Source: <a href="{esc(s["source_url"])}" target="_blank" rel="noopener">{esc(s["source_url"])}</a></div>'
 
     hero_img = ""
