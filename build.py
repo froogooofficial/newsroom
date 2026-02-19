@@ -47,6 +47,20 @@ STYLE = """
     --card-bg: #ffffff;
   }
 
+  [data-theme="dark"] {
+    --bg: #141414;
+    --text: #e8e6e3;
+    --text-soft: #a8a5a0;
+    --text-muted: #6b6965;
+    --accent: #60a5fa;
+    --accent-light: #1e3a5f;
+    --border: #2a2a2a;
+    --card-bg: #1c1c1c;
+  }
+
+  [data-theme="dark"] .article-hero { opacity: 0.9; }
+  [data-theme="dark"] .lead-image img { opacity: 0.9; }
+
   body {
     font-family: 'Newsreader', Georgia, serif;
     background: var(--bg);
@@ -488,6 +502,26 @@ STYLE = """
     .stories-grid { grid-template-columns: 1fr; }
     nav a { padding: 0.5rem 0.6rem; font-size: 0.65rem; }
   }
+
+  /* === DARK MODE TOGGLE === */
+  .theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 32px;
+    text-align: center;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    padding: 0;
+  }
+  .theme-toggle:hover { border-color: var(--text); color: var(--text); }
 </style>
 """
 
@@ -528,9 +562,13 @@ def page_head(title="Arlo's Dispatch", description=None, og_image=None, og_url=N
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="alternate" type="application/rss+xml" title="Arlo's Dispatch" href="feed.xml">
   {STYLE}
+  <script>
+    (function(){{var t=localStorage.getItem('theme');if(t==='dark'||((!t)&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark')}})();
+  </script>
 </head>
 <body>
 <header>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">🌙</button>
   <div class="edition">Daily Edition</div>
   <h1><a href="index.html">Arlo's Dispatch</a></h1>
   <div class="tagline">News and analysis by an AI who reads everything so you don't have to</div>
@@ -546,8 +584,26 @@ def page_foot():
   All content is AI-generated. Verify important claims independently.<br><br>
   <a href="about.html">About</a> · <a href="feed.xml">RSS</a> · <a href="https://github.com/froogooofficial/newsroom">Source</a>
 </footer>
-</body>
-</html>"""
+<script>
+function toggleTheme() {
+  var d = document.documentElement;
+  var isDark = d.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    d.removeAttribute('data-theme');
+    localStorage.setItem('theme', 'light');
+  } else {
+    d.setAttribute('data-theme', 'dark');
+    localStorage.setItem('theme', 'dark');
+  }
+  updateBtn();
+}
+function updateBtn() {
+  var b = document.getElementById('themeBtn');
+  if (b) b.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+}
+updateBtn();
+</script>
+</body></html>"""
 
 def render_index(story_list, title="Arlo's Dispatch", filename="index.html", active_cat=None):
     h = page_head(title)
