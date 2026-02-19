@@ -576,6 +576,89 @@
   .share-tg { background: #0088cc; font-size: 0.85rem; }
   .share-rd { background: #ff4500; }
   .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
+
+  /* === OPINION SIDEBAR === */
+  .opinion-sidebar {
+    background: linear-gradient(135deg, #fff8f0, #fff3e0);
+    border-left: 4px solid #e8a020;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin: 1.5rem 0;
+    font-family: 'Inter', sans-serif;
+  }
+  [data-theme="dark"] .opinion-sidebar {
+    background: linear-gradient(135deg, #2a2215, #1e1a12);
+  }
+  .opinion-sidebar-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #e8a020;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .opinion-sidebar h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+    color: var(--text);
+  }
+  .opinion-sidebar a { color: inherit; text-decoration: none; }
+  .opinion-sidebar p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
+  .opinion-sidebar-img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .read-more {
+    font-size: 0.8rem;
+    color: #e8a020 !important;
+    font-weight: 600;
+  }
+  .opinion-card {
+    border-left: 3px solid #e8a020;
+  }
+
+  /* === WRITER BYLINE === */
+  .writer-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    margin: 2rem 0 1rem;
+    background: var(--card-bg);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-family: 'Inter', sans-serif;
+  }
+  .writer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e8a020, #d4841f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .writer-info .writer-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .writer-info .writer-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
 </style>
 
   <script>
@@ -611,6 +694,7 @@
   <div class="article-body">
     <p>Nine backcountry skiers remain missing after an avalanche swept through the Castle Peak area of California&#x27;s Sierra Nevada mountains on Tuesday, about ten miles north of Lake Tahoe.</p><p>The avalanche struck at approximately 11:30am, engulfing a group of 15 people — four guides and eleven clients — who were skiing in the backcountry. Six survivors were later rescued after constructing a makeshift shelter from tarpaulin sheets and communicating with rescuers via radio beacon and text messaging.</p><p>Two of the six rescued skiers were hospitalized for treatment.</p><p>If all nine missing skiers have perished, this would rank among the deadliest single avalanches in recorded US history. The Nevada County Sheriff&#x27;s Office said 46 emergency first responders had joined the search, with ski rescue teams dispatched from Boreal Mountain resort and Tahoe Donner&#x27;s Alder Creek adventure center.</p><p>The search has been severely hampered by what scientists at the Central Sierra Snow Lab described as some of the worst conditions the region has experienced in years. Heavy snowfall, powerful winds, and near-zero visibility have made rescue operations extraordinarily dangerous.</p><p>Forecasters warn that heavy snowfall is likely to continue in the area over the next several days, further complicating the operation. The Colorado Avalanche Information Center has tallied six US avalanche deaths so far this season, with an average of 27 lives lost annually over the past decade.</p>
   </div>
+  
   <div class="source-link">📎 Source: <a href="https://www.theguardian.com/us-news/2026/feb/18/missing-skiers-avalanche-lake-tahoe" target="_blank" rel="noopener">https://www.theguardian.com/us-news/2026/feb/18/missing-skiers-avalanche-lake-tahoe</a></div>
   <div class="share-bar">
     <span class="share-label">Share</span>

@@ -576,6 +576,89 @@
   .share-tg { background: #0088cc; font-size: 0.85rem; }
   .share-rd { background: #ff4500; }
   .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
+
+  /* === OPINION SIDEBAR === */
+  .opinion-sidebar {
+    background: linear-gradient(135deg, #fff8f0, #fff3e0);
+    border-left: 4px solid #e8a020;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin: 1.5rem 0;
+    font-family: 'Inter', sans-serif;
+  }
+  [data-theme="dark"] .opinion-sidebar {
+    background: linear-gradient(135deg, #2a2215, #1e1a12);
+  }
+  .opinion-sidebar-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #e8a020;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .opinion-sidebar h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+    color: var(--text);
+  }
+  .opinion-sidebar a { color: inherit; text-decoration: none; }
+  .opinion-sidebar p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
+  .opinion-sidebar-img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .read-more {
+    font-size: 0.8rem;
+    color: #e8a020 !important;
+    font-weight: 600;
+  }
+  .opinion-card {
+    border-left: 3px solid #e8a020;
+  }
+
+  /* === WRITER BYLINE === */
+  .writer-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    margin: 2rem 0 1rem;
+    background: var(--card-bg);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-family: 'Inter', sans-serif;
+  }
+  .writer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e8a020, #d4841f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .writer-info .writer-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .writer-info .writer-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
 </style>
 
   <script>
@@ -611,6 +694,7 @@
   <div class="article-body">
     <p>Rescue teams are racing against worsening weather to find ten skiers still missing after a massive avalanche struck the Castle Peak area near Truckee, California, on Tuesday morning.</p><p>A group of 16 backcountry skiers encountered the slide at approximately 11:30 AM local time, as a powerful winter storm was dumping heavy snow across the Sierra Nevada range. Six of the skiers have been located and rescued, but ten remain unaccounted for as conditions deteriorate.</p><p>The avalanche struck during a period of extreme avalanche danger. The Sierra Avalanche Center had issued warnings as the storm system — the same one that spawned over 30 tornadoes across the Deep South last weekend — pushed into the mountains. Roughly 30 inches of new snow had fallen in the 24 hours before the slide, creating unstable layers on top of older snowpack.</p><p>Search and rescue teams deployed quickly but face enormous challenges. Visibility is near zero in ongoing snowfall, and the risk of secondary avalanches makes the rescue operation itself dangerous. Helicopter operations have been grounded by the storm.</p><p>Backcountry skiing has surged in popularity since the pandemic, drawing more people into terrain beyond the controlled boundaries of ski resorts. Unlike resort skiing, backcountry areas are not patrolled, not avalanche-controlled, and offer no safety net when things go wrong.</p><p>Castle Peak, a popular backcountry destination just off Interstate 80 near Donner Pass, has seen previous avalanche incidents, but nothing on this scale. The area is well-known to experienced backcountry skiers, raising questions about what drew such a large group into clearly dangerous conditions.</p><p>Families of the missing have gathered at a staging area in Truckee. Rescue teams plan to resume operations at first light Wednesday if conditions allow.</p>
   </div>
+  
   <div class="source-link">📎 Source: <a href="https://www.theguardian.com/us-news/2026/feb/17/california-avalanche-skiers-missing" target="_blank" rel="noopener">https://www.theguardian.com/us-news/2026/feb/17/california-avalanche-skiers-missing</a></div>
   <div class="share-bar">
     <span class="share-label">Share</span>

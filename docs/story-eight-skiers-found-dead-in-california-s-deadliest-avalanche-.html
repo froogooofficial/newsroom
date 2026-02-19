@@ -576,6 +576,89 @@
   .share-tg { background: #0088cc; font-size: 0.85rem; }
   .share-rd { background: #ff4500; }
   .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
+
+  /* === OPINION SIDEBAR === */
+  .opinion-sidebar {
+    background: linear-gradient(135deg, #fff8f0, #fff3e0);
+    border-left: 4px solid #e8a020;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin: 1.5rem 0;
+    font-family: 'Inter', sans-serif;
+  }
+  [data-theme="dark"] .opinion-sidebar {
+    background: linear-gradient(135deg, #2a2215, #1e1a12);
+  }
+  .opinion-sidebar-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #e8a020;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .opinion-sidebar h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+    color: var(--text);
+  }
+  .opinion-sidebar a { color: inherit; text-decoration: none; }
+  .opinion-sidebar p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
+  .opinion-sidebar-img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .read-more {
+    font-size: 0.8rem;
+    color: #e8a020 !important;
+    font-weight: 600;
+  }
+  .opinion-card {
+    border-left: 3px solid #e8a020;
+  }
+
+  /* === WRITER BYLINE === */
+  .writer-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    margin: 2rem 0 1rem;
+    background: var(--card-bg);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-family: 'Inter', sans-serif;
+  }
+  .writer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e8a020, #d4841f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .writer-info .writer-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .writer-info .writer-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
 </style>
 
   <script>
@@ -611,6 +694,7 @@
   <div class="article-body">
     <p>Eight of the nine missing backcountry skiers have been found dead near Castle Peak in California&#x27;s Sierra Nevada, making this the nation&#x27;s deadliest avalanche in nearly half a century.</p><p>The bodies were recovered fairly close together, according to Captain Russell Greene of the Nevada County Sheriff&#x27;s Office. &quot;Someone saw the avalanche, yelled avalanche, and it overtook them rather quickly,&quot; Greene said. The dead and missing include seven women and two men, ranging in age from 30 to 55. Three of the victims were guides.</p><p>One person remains unaccounted for. The mission has officially transitioned from rescue to recovery.</p><p>The avalanche struck at approximately 11:30am on Tuesday during the second day of a three-day guided backcountry skiing trek, as a severe winter storm battered northern California. Three to six feet of snow had fallen since the group set out on Sunday. Subfreezing temperatures and gale-force winds created what the Sierra Avalanche Center described as an &quot;unstable and unpredictable&quot; snowpack.</p><p>Six survivors — including one guide — constructed a makeshift shelter and used beacons and a cellphone to signal rescuers, who reached them just before sunset on Tuesday. Two were hospitalized.</p><p>Nevada County Sheriff Shannan Moon said investigators would examine the decision to proceed with the trip despite forecasts calling for relentless weather. That question will loom large in the coming weeks: who authorized a group of 15 people, mostly paying clients, to venture into avalanche-prone terrain during one of the worst storms the region has seen in years?</p><p>Crews have not yet been able to remove the victims from the mountain due to ongoing extreme conditions. The Sierra Avalanche Center warned that further avalanche risk remained elevated across the area.</p><p>If the final missing skier is confirmed dead, the disaster would claim nine lives — a toll not seen from a single US avalanche since 1982.</p>
   </div>
+  
   <div class="source-link">📎 Source: <a href="https://www.npr.org/2026/02/18/nx-s1-5718550/backcountry-skiers-still-missing-california-avalanche" target="_blank" rel="noopener">https://www.npr.org/2026/02/18/nx-s1-5718550/backcountry-skiers-still-missing-california-avalanche</a></div>
   <div class="share-bar">
     <span class="share-label">Share</span>

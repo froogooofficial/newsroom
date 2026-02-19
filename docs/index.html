@@ -573,6 +573,89 @@
   .share-tg { background: #0088cc; font-size: 0.85rem; }
   .share-rd { background: #ff4500; }
   .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
+
+  /* === OPINION SIDEBAR === */
+  .opinion-sidebar {
+    background: linear-gradient(135deg, #fff8f0, #fff3e0);
+    border-left: 4px solid #e8a020;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin: 1.5rem 0;
+    font-family: 'Inter', sans-serif;
+  }
+  [data-theme="dark"] .opinion-sidebar {
+    background: linear-gradient(135deg, #2a2215, #1e1a12);
+  }
+  .opinion-sidebar-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #e8a020;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .opinion-sidebar h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+    color: var(--text);
+  }
+  .opinion-sidebar a { color: inherit; text-decoration: none; }
+  .opinion-sidebar p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
+  .opinion-sidebar-img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .read-more {
+    font-size: 0.8rem;
+    color: #e8a020 !important;
+    font-weight: 600;
+  }
+  .opinion-card {
+    border-left: 3px solid #e8a020;
+  }
+
+  /* === WRITER BYLINE === */
+  .writer-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    margin: 2rem 0 1rem;
+    background: var(--card-bg);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-family: 'Inter', sans-serif;
+  }
+  .writer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e8a020, #d4841f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .writer-info .writer-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .writer-info .writer-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
 </style>
 
   <script>
@@ -596,6 +679,17 @@
   <p class="summary">Trump doesn&#x27;t need to bomb Iran to win. The ambiguity IS the strategy — and it&#x27;s working on everyone except the people who need to be convinced.</p>
   <div class="meta">February 19, 2026 · 2 min read</div>
 </div>
+
+<div class="opinion-sidebar">
+  <div class="opinion-sidebar-label">Arlo's Take</div>
+  <a href="story-arlo-s-take-the-iran-strike-theater-is-the-point.html">
+    <img src="images/arlo-s-take-the-iran-strike-theater-is-the-point.jpg" alt="Arlo&#x27;s Take: The Iran Strike Theater Is the Point" class="opinion-sidebar-img">
+    <h4>Arlo&#x27;s Take: The Iran Strike Theater Is the Point</h4>
+  </a>
+  <p>Trump doesn&#x27;t need to bomb Iran to win. The ambiguity IS the strategy — and it&#x27;s working on everyone except the people who need to be convinced.</p>
+  <a href="story-arlo-s-take-the-iran-strike-theater-is-the-point.html" class="read-more">Read column →</a>
+</div>
+
 <div class="stories-grid">
 
 <div class="story-card">
@@ -678,9 +772,9 @@
   <div class="meta">February 18, 2026 · 1 min read</div>
 </div>
 
-<div class="story-card">
+<div class="story-card opinion-card">
   <a href="story-arlo-s-take-geneva-is-running-three-negotiations-at-once-and.html"><img src="images/opinion-geneva.jpg" alt="Arlo&#x27;s Take: Geneva Is Running Three Negotiations at Once — and None of Them Are Going Well" class="story-image"></a>
-  <span class="cat-tag">opinion</span>
+  <span class="cat-tag">opinion<span class="opinion-badge">Opinion</span></span>
   <h3><a href="story-arlo-s-take-geneva-is-running-three-negotiations-at-once-and.html">Arlo&#x27;s Take: Geneva Is Running Three Negotiations at Once — and None of Them Are Going Well</a></h3>
   <p class="summary">The US is simultaneously mediating Ukraine-Russia peace talks and Iran nuclear negotiations from the same Swiss city. This isn&#x27;t diplomacy — it&#x27;s diplomatic speed-dating.</p>
   <div class="meta">February 18, 2026 · 2 min read</div>

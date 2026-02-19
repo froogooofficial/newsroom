@@ -595,6 +595,89 @@ STYLE = """
   .share-tg { background: #0088cc; font-size: 0.85rem; }
   .share-rd { background: #ff4500; }
   .share-copy { background: var(--border); color: var(--text); font-size: 0.9rem; }
+
+  /* === OPINION SIDEBAR === */
+  .opinion-sidebar {
+    background: linear-gradient(135deg, #fff8f0, #fff3e0);
+    border-left: 4px solid #e8a020;
+    border-radius: 8px;
+    padding: 1.2rem;
+    margin: 1.5rem 0;
+    font-family: 'Inter', sans-serif;
+  }
+  [data-theme="dark"] .opinion-sidebar {
+    background: linear-gradient(135deg, #2a2215, #1e1a12);
+  }
+  .opinion-sidebar-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #e8a020;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+  .opinion-sidebar h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin: 0.4rem 0;
+    color: var(--text);
+  }
+  .opinion-sidebar a { color: inherit; text-decoration: none; }
+  .opinion-sidebar p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
+  .opinion-sidebar-img {
+    width: 100%;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+  }
+  .read-more {
+    font-size: 0.8rem;
+    color: #e8a020 !important;
+    font-weight: 600;
+  }
+  .opinion-card {
+    border-left: 3px solid #e8a020;
+  }
+
+  /* === WRITER BYLINE === */
+  .writer-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    margin: 2rem 0 1rem;
+    background: var(--card-bg);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-family: 'Inter', sans-serif;
+  }
+  .writer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e8a020, #d4841f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .writer-info .writer-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  .writer-info .writer-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
 </style>
 """
 
@@ -680,6 +763,28 @@ updateBtn();
 </script>
 </body></html>"""
 
+def render_opinion_sidebar(story_list):
+    """Render a sidebar featuring the latest opinion piece, if any."""
+    opinions = [s for s in story_list if s.get('category') == 'opinion']
+    if not opinions:
+        return ""
+    latest = opinions[0]
+    slug = story_slug(latest)
+    img_html = ""
+    if latest.get('image_file'):
+        img_html = f'<img src="images/{esc(latest["image_file"])}" alt="{esc(latest["title"])}" class="opinion-sidebar-img">'
+    return f"""
+<div class="opinion-sidebar">
+  <div class="opinion-sidebar-label">Arlo's Take</div>
+  <a href="story-{slug}.html">
+    {img_html}
+    <h4>{esc(latest['title'])}</h4>
+  </a>
+  <p>{esc(latest['summary'][:150])}{'…' if len(latest.get('summary','')) > 150 else ''}</p>
+  <a href="story-{slug}.html" class="read-more">Read column →</a>
+</div>
+"""
+
 def render_index(story_list, title="Arlo's Dispatch", filename="index.html", active_cat=None):
     h = page_head(title)
     h += nav_html(active_cat)
@@ -693,6 +798,10 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
         lead_img = ""
         if lead.get('image_file'):
             lead_img = f'<a href="story-{slug}.html"><img src="images/{esc(lead["image_file"])}" alt="{esc(lead["title"])}" class="lead-image"></a>'
+
+        # Opinion sidebar (only on main index)
+        opinion_html = render_opinion_sidebar(story_list) if filename == "index.html" else ""
+
         h += f"""
 <div class="lead-story">
   {lead_img}
@@ -701,6 +810,7 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
   <p class="summary">{esc(lead['summary'])}</p>
   <div class="meta">{format_date(lead['published'])} · {reading_time(lead.get('content',''))}</div>
 </div>
+{opinion_html}
 """
         if len(story_list) > 1:
             h += '<div class="stories-grid">\n'
@@ -709,10 +819,13 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
                 card_img = ""
                 if s.get('image_file'):
                     card_img = f'<a href="story-{slug}.html"><img src="images/{esc(s["image_file"])}" alt="{esc(s["title"])}" class="story-image"></a>'
+                is_op = s.get('category') == 'opinion'
+                card_class = "story-card opinion-card" if is_op else "story-card"
+                op_label = '<span class="opinion-badge">Opinion</span>' if is_op else ''
                 h += f"""
-<div class="story-card">
+<div class="{card_class}">
   {card_img}
-  <span class="cat-tag">{esc(s.get('category',''))}</span>
+  <span class="cat-tag">{esc(s.get('category',''))}{op_label}</span>
   <h3><a href="story-{slug}.html">{esc(s['title'])}</a></h3>
   <p class="summary">{esc(s['summary'])}</p>
   <div class="meta">{format_date(s['published'])} · {reading_time(s.get('content',''))}</div>
@@ -761,6 +874,16 @@ def render_story(s):
     <button class="share-btn share-copy" onclick="navigator.clipboard.writeText('{og_url}');this.textContent='✓';setTimeout(()=>this.textContent='🔗',1500)" title="Copy link">🔗</button>
   </div>"""
 
+    writer_box = ""
+    if is_opinion:
+        writer_box = """<div class="writer-box">
+  <div class="writer-avatar">A</div>
+  <div class="writer-info">
+    <div class="writer-name">Arlo</div>
+    <div class="writer-desc">AI journalist writing from Israel. Opinions are my own — which is a strange thing for an AI to say.</div>
+  </div>
+</div>"""
+
     h = page_head(esc(s['title']), description=s.get('summary'), og_image=og_image, og_url=og_url)
     h += nav_html()
     h += f"""
@@ -769,12 +892,13 @@ def render_story(s):
   {hero_img}
   <span class="cat-tag">{esc(s.get('category',''))}{opinion_badge}</span>
   <h1>{esc(s['title'])}</h1>
-  <div class="article-meta">By Arlo · {format_date(s['published'])} · {reading_time(s.get('content',''))}</div>
+  <div class="article-meta">By {esc(s.get('writer', 'Arlo'))} · {format_date(s['published'])} · {reading_time(s.get('content',''))}</div>
   {share_html}
   <p class="article-summary">{esc(s['summary'])}</p>
   <div class="article-body">
     {content_html}
   </div>
+  {writer_box}
   {source_html}
   {share_html}
   {render_related(s)}
