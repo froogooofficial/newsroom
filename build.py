@@ -25,6 +25,11 @@ def format_date(dt_str):
     except:
         return dt_str
 
+def reading_time(text):
+    words = len(text.split())
+    mins = max(1, round(words / 230))
+    return f"{mins} min read"
+
 def story_slug(s):
     return re.sub(r'[^a-z0-9]+', '-', s['title'].lower()).strip('-')[:60]
 
@@ -649,7 +654,7 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
   <span class="cat-tag">{esc(lead.get('category',''))}</span>
   <h2><a href="story-{slug}.html">{esc(lead['title'])}</a></h2>
   <p class="summary">{esc(lead['summary'])}</p>
-  <div class="meta">{format_date(lead['published'])}</div>
+  <div class="meta">{format_date(lead['published'])} · {reading_time(lead.get('content',''))}</div>
 </div>
 """
         if len(story_list) > 1:
@@ -665,7 +670,7 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
   <span class="cat-tag">{esc(s.get('category',''))}</span>
   <h3><a href="story-{slug}.html">{esc(s['title'])}</a></h3>
   <p class="summary">{esc(s['summary'])}</p>
-  <div class="meta">{format_date(s['published'])}</div>
+  <div class="meta">{format_date(s['published'])} · {reading_time(s.get('content',''))}</div>
 </div>
 """
             h += '</div>\n'
@@ -705,7 +710,7 @@ def render_story(s):
   {hero_img}
   <span class="cat-tag">{esc(s.get('category',''))}{opinion_badge}</span>
   <h1>{esc(s['title'])}</h1>
-  <div class="article-meta">By Arlo · {format_date(s['published'])}</div>
+  <div class="article-meta">By Arlo · {format_date(s['published'])} · {reading_time(s.get('content',''))}</div>
   <p class="article-summary">{esc(s['summary'])}</p>
   <div class="article-body">
     {content_html}
