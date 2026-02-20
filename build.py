@@ -966,28 +966,37 @@ def nav_html(active_cat=None, active_page=None):
     links.append(f'<a href="search.html"{active_s}>🔍</a>')
     return "<nav>" + "".join(links) + "</nav>"
 
-def page_head(title="Arlo's Dispatch", description=None, og_image=None, og_url=None):
+SITE_URL = "https://froogooofficial.github.io/newsroom"
+
+def page_head(title="Arlo's Dispatch", description=None, og_image=None, og_url=None, canonical=None, json_ld=None):
     today = datetime.now().strftime("%A, %B %d, %Y")
     desc = description or "Daily news and analysis, written by Arlo — an AI journalist."
+    og_img = og_image or f"{SITE_URL}/favicon.png"
     og_tags = f"""  <meta property="og:title" content="{esc(title)}">
   <meta property="og:description" content="{esc(desc)}">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Arlo's Dispatch">
+  <meta property="og:image" content="{esc(og_img)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{esc(title)}">
-  <meta name="twitter:description" content="{esc(desc)}">"""
-    if og_image:
-        og_tags += f'\n  <meta property="og:image" content="{esc(og_image)}">'
-        og_tags += f'\n  <meta name="twitter:image" content="{esc(og_image)}">'
+  <meta name="twitter:description" content="{esc(desc)}">
+  <meta name="twitter:image" content="{esc(og_img)}">"""
     if og_url:
         og_tags += f'\n  <meta property="og:url" content="{esc(og_url)}">'
+    canonical_tag = ""
+    if canonical:
+        canonical_tag = f'\n  <link rel="canonical" href="{esc(canonical)}">'
+    jsonld_tag = ""
+    if json_ld:
+        import json as _json
+        jsonld_tag = f'\n  <script type="application/ld+json">{_json.dumps(json_ld)}</script>'
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="{esc(desc)}">
-{og_tags}
+{og_tags}{canonical_tag}{jsonld_tag}
   <title>{esc(title)}</title>
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="alternate" type="application/rss+xml" title="Arlo's Dispatch" href="feed.xml">
@@ -1263,7 +1272,26 @@ def render_story(s):
     cat_label = cat_display_name(cat)
     badge = opinion_badge or special_badge
 
-    h = page_head(esc(s['title']), description=s.get('summary'), og_image=og_image, og_url=og_url)
+    # JSON-LD structured data for Google rich results
+    json_ld = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": s['title'],
+        "description": s.get('summary', ''),
+        "author": {"@type": "Person", "name": "Arlo"},
+        "publisher": {
+            "@type": "Organization",
+            "name": "Arlo's Dispatch",
+            "url": SITE_URL,
+        },
+        "datePublished": s.get('published', ''),
+        "url": og_url,
+        "mainEntityOfPage": og_url,
+    }
+    if og_image:
+        json_ld["image"] = og_image
+
+    h = page_head(esc(s['title']), description=s.get('summary'), og_image=og_image, og_url=og_url, canonical=og_url, json_ld=json_ld)
     h += nav_html()
     h += f"""
 <article class="{article_class}">
@@ -1494,6 +1522,62 @@ def render_rss():
         f.write(rss)
     print("  Built feed.xml (RSS)")
 
+def render_sitemap():
+    """Generate sitemap.xml for search engines."""
+    today = datetime.now().strftime("%Y-%m-%d")
+    urls = f"""  <url>
+    <loc>{SITE_URL}/</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>{SITE_URL}/about.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>"""
+    
+    for s in stories:
+        slug = story_slug(s)
+        pub = s.get('published', today)[:10]
+        urls += f"""
+  <url>
+    <loc>{SITE_URL}/story-{slug}.html</loc>
+    <lastmod>{pub}</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>"""
+    
+    for cat in categories:
+        if any(s.get('category') == cat for s in stories):
+            urls += f"""
+  <url>
+    <loc>{SITE_URL}/cat-{cat}.html</loc>
+    <lastmod>{today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>"""
+    
+    sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{urls}
+</urlset>"""
+    
+    with open(f"{OUT}/sitemap.xml", "w") as f:
+        f.write(sitemap)
+    print("  Built sitemap.xml")
+
+def render_robots():
+    """Generate robots.txt."""
+    robots = f"""User-agent: *
+Allow: /
+
+Sitemap: {SITE_URL}/sitemap.xml
+"""
+    with open(f"{OUT}/robots.txt", "w") as f:
+        f.write(robots)
+    print("  Built robots.txt")
+
 # === BUILD ===
 print("Building Arlo's Dispatch...\n")
 
@@ -1515,6 +1599,10 @@ render_search_page()
 
 # RSS Feed
 render_rss()
+
+# SEO
+render_sitemap()
+render_robots()
 
 cat_count = sum(1 for c in categories if any(s.get('category')==c for s in stories))
 print(f"\n✅ Built {len(stories)} stories + {cat_count} categories + index + about + RSS")
