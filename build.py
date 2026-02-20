@@ -1173,7 +1173,7 @@ function handleSubscribe(e) {
   subs.push({email: email, date: new Date().toISOString()});
   localStorage.setItem('dispatch_subs', JSON.stringify(subs));
   // Send to our collector endpoint
-  navigator.sendBeacon && navigator.sendBeacon('https://script.google.com/macros/s/PLACEHOLDER/exec', JSON.stringify({email: email}));
+  navigator.sendBeacon && navigator.sendBeacon('https://script.google.com/macros/s/AKfycbyvhd5Ur40dt8wtCKgXEkN6AtQfd_IqlEghj8Y3tIlQo0bCkShng-ghf12CcLJmTYBq/exec', JSON.stringify({email: email}));
   document.getElementById('newsletter-form').style.display = 'none';
   document.getElementById('nl-thanks').style.display = 'block';
   return false;
