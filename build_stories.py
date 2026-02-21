@@ -547,7 +547,12 @@ body {{ min-height: -webkit-fill-available; }}
 .close-btn:hover {{ color: white; }}
 
 /* ─── Desktop / Tablet layout ─── */
-@media (min-width: 600px) {{
+/* MOBILE-FIRST: everything below 768px is default (full-screen stories) */
+
+/* Peek panels hidden by default (mobile) */
+.peek-prev, .peek-next {{ display: none; }}
+
+@media (min-width: 768px) {{
   /* Center the feed */
   .stories-bar {{
     max-width: 600px; width: 600px;
@@ -593,12 +598,10 @@ body {{ min-height: -webkit-fill-available; }}
   .story-card .card-bg {{
     border-radius: 16px;
   }}
-  /* Hide peek panels on small desktop */
-  .peek-prev, .peek-next {{ display: none; }}
 }}
 
 /* ─── Wide desktop: 3-panel AMP-style layout ─── */
-@media (min-width: 960px) {{
+@media (min-width: 1024px) {{
   .stories-bar {{
     max-width: 800px; width: 800px;
   }}
