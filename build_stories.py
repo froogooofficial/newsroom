@@ -229,6 +229,12 @@ html, body {{
 }}
 .story-viewer.active {{ display: flex; }}
 
+/* Frame: full-screen on mobile, phone-shape on desktop */
+.story-frame {{
+  position: relative; flex: 1; display: flex; flex-direction: column;
+  overflow: hidden;
+}}
+
 .progress-bar-container {{
   display: flex; gap: 3px; padding: 10px 12px 6px;
   position: absolute; top: 0; left: 0; right: 0; z-index: 10;
@@ -524,25 +530,66 @@ html, body {{
 }}
 .close-btn:hover {{ color: white; }}
 
-/* Desktop constraint */
+/* ─── Desktop / Tablet layout ─── */
 @media (min-width: 600px) {{
-  body {{
-    display: flex; flex-direction: column; align-items: center;
-  }}
+  /* Center the feed */
   .stories-bar {{
-    left: 50%; transform: translateX(-50%); right: auto;
-    max-width: 560px; width: 100%;
+    max-width: 600px; width: 600px;
+    left: 50% !important; right: auto !important;
+    transform: translateX(-50%);
   }}
   .feed {{
-    max-width: 560px; width: 100%; margin: 0 auto;
-  }}
-  .story-viewer {{
-    max-width: 420px; left: 50%; transform: translateX(-50%); right: auto;
-    box-shadow: 0 0 80px rgba(0,0,0,0.6);
-    border-left: 1px solid #1a1a22; border-right: 1px solid #1a1a22;
+    max-width: 600px; width: 100%; margin: 0 auto;
   }}
   .feed-lead {{ border-radius: 16px; }}
-  .feed-lead img {{ height: 320px; }}
+  .feed-lead img {{ height: 340px; }}
+
+  /* Story viewer: phone-frame centered with backdrop */
+  .story-viewer {{
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    align-items: center; justify-content: center;
+  }}
+  .story-viewer .story-frame {{
+    position: relative; flex: none;
+    width: 380px; height: min(92vh, 675px);
+    border-radius: 20px; overflow: hidden;
+    background: #08080d;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 80px rgba(0,0,0,0.6);
+    display: flex; flex-direction: column;
+  }}
+  .story-viewer .progress-bar-container {{
+    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+    border-radius: 20px 20px 0 0;
+  }}
+  .story-viewer .close-btn {{
+    position: absolute; top: 14px; right: 14px; z-index: 10;
+  }}
+  .story-viewer .slide-counter {{
+    position: absolute; top: 28px; right: 56px; z-index: 10;
+  }}
+  .story-viewer .nav-left,
+  .story-viewer .nav-right {{
+    position: absolute; top: 0; height: 100%; z-index: 5;
+  }}
+  .story-viewer .nav-left {{ left: 0; width: 25%; }}
+  .story-viewer .nav-right {{ right: 0; width: 75%; }}
+  .story-card .card-bg {{
+    border-radius: 20px;
+  }}
+}}
+
+/* Wider desktop: bigger frame + story info sidebar */
+@media (min-width: 900px) {{
+  .stories-bar {{
+    max-width: 720px; width: 720px;
+  }}
+  .feed {{
+    max-width: 720px;
+  }}
+  .story-viewer .story-frame {{
+    width: 400px; height: min(94vh, 710px);
+  }}
 }}
 
 /* Reduce motion for accessibility */
@@ -571,13 +618,15 @@ html, body {{
   </div>
 </div>
 
-<div class="story-viewer" id="storyViewer">
-  <div class="progress-bar-container" id="progressBars"></div>
-  <div class="slide-counter" id="slideCounter"></div>
-  <div class="close-btn" onclick="closeStory()">✕</div>
-  <div id="cardsContainer" style="flex:1;display:flex;flex-direction:column;"></div>
-  <div class="nav-left" onclick="prevCard()"></div>
-  <div class="nav-right" onclick="nextCard()"></div>
+<div class="story-viewer" id="storyViewer" onclick="if(event.target===this)closeStory()">
+  <div class="story-frame">
+    <div class="progress-bar-container" id="progressBars"></div>
+    <div class="slide-counter" id="slideCounter"></div>
+    <div class="close-btn" onclick="closeStory()">✕</div>
+    <div id="cardsContainer" style="flex:1;display:flex;flex-direction:column;"></div>
+    <div class="nav-left" onclick="prevCard()"></div>
+    <div class="nav-right" onclick="nextCard()"></div>
+  </div>
 </div>
 
 <script>
