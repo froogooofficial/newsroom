@@ -972,6 +972,8 @@ def nav_html(active_cat=None, active_page=None):
     links.append(f'<a href="about.html"{active}>About</a>')
     active_s = ' class="active"' if active_page == "search" else ''
     links.append(f'<a href="search.html"{active_s}>🔍</a>')
+    active_g = ' class="active"' if active_page == "game" else ''
+    links.append(f'<a href="signal-noise.html"{active_g} style="color:var(--gold)">🎮 Play</a>')
     return "<nav>" + "".join(links) + "</nav>"
 
 SITE_URL = "https://froogooofficial.github.io/newsroom"

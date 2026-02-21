@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Signal / Noise — The Daily Headline Game | Arlo's Dispatch</title>
+<meta name="description" content="Can you tell real headlines from AI-fabricated ones? Play the daily headline game from Arlo's Dispatch.">
+<meta property="og:title" content="Signal / Noise — The Daily Headline Game">
+<meta property="og:description" content="5 headlines. Some real, some fake. Can you tell the difference?">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://froogooofficial.github.io/newsroom/signal-noise.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="favicon.png" type="image/png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #14141f;
+    --surface2: #1e1e2e;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --text-muted: #8888a0;
+    --accent: #6c63ff;
+    --signal: #22c55e;
+    --signal-bg: rgba(34, 197, 94, 0.1);
+    --noise: #ef4444;
+    --noise-bg: rgba(239, 68, 68, 0.1);
+    --gold: #f59e0b;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 1.5rem 1rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .header a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .header a:hover { color: var(--text); }
+  .game-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0.5rem 0 0.25rem;
+  }
+  .game-title .signal { color: var(--signal); }
+  .game-title .noise { color: var(--noise); }
+  .game-title .slash { color: var(--text-muted); opacity: 0.5; }
+  .game-subtitle {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+  .game-day {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .stat-value.streak { color: var(--gold); }
+
+  /* Progress dots */
+  .progress {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    transition: all 0.3s ease;
+  }
+  .dot.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(108, 99, 255, 0.4);
+  }
+  .dot.correct {
+    background: var(--signal);
+    border-color: var(--signal);
+  }
+  .dot.wrong {
+    background: var(--noise);
+    border-color: var(--noise);
+  }
+
+  /* Headline card */
+  .game-area {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
+  .headline-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .headline-text {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  .headline-card.reveal-signal {
+    border-color: var(--signal);
+    background: var(--signal-bg);
+  }
+  .headline-card.reveal-noise {
+    border-color: var(--noise);
+    background: var(--noise-bg);
+  }
+
+  /* Explanation */
+  .explanation {
+    text-align: center;
+    padding: 0 1rem 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+  }
+  .explanation.show {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 100px;
+    padding-bottom: 1rem;
+  }
+  .explanation .verdict {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+  .explanation .verdict.is-signal { color: var(--signal); }
+  .explanation .verdict.is-noise { color: var(--noise); }
+
+  /* Buttons */
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    padding: 0 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .btn {
+    flex: 1;
+    padding: 1rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-signal:hover, .btn-signal:focus {
+    border-color: var(--signal);
+    background: var(--signal-bg);
+  }
+  .btn-noise:hover, .btn-noise:focus {
+    border-color: var(--noise);
+    background: var(--noise-bg);
+  }
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+    transform: none;
+  }
+  .btn .icon { font-size: 1.3rem; }
+
+  /* Next button */
+  .next-btn {
+    display: none;
+    max-width: 600px;
+    margin: 1rem auto 0;
+    padding: 0.75rem 2rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    width: calc(100% - 2rem);
+  }
+  .next-btn:hover { opacity: 0.9; }
+  .next-btn:active { transform: scale(0.98); }
+
+  /* Results screen */
+  .results {
+    display: none;
+    text-align: center;
+    padding: 2rem 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .results-emoji {
+    font-size: 2rem;
+    letter-spacing: 0.3rem;
+    margin-bottom: 1rem;
+  }
+  .results h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.25rem;
+  }
+  .results .score-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .results-message {
+    font-family: 'Newsreader', Georgia, serif;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin-bottom: 0.75rem;
+  }
+  .share-btn:hover { opacity: 0.9; }
+  .share-btn:active { transform: scale(0.98); }
+  .share-btn.copied {
+    background: var(--signal);
+  }
+
+  .play-again-link {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    text-decoration: none;
+  }
+  .play-again-link:hover { color: var(--text); }
+
+  .review-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    text-align: left;
+  }
+  .review-section h3 {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .review-item {
+    padding: 1rem;
+    background: var(--surface);
+    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid var(--border);
+  }
+  .review-item.was-signal { border-left-color: var(--signal); }
+  .review-item.was-noise { border-left-color: var(--noise); }
+  .review-headline {
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .review-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .review-meta .tag {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .review-meta .tag-signal { background: var(--signal-bg); color: var(--signal); }
+  .review-meta .tag-noise { background: var(--noise-bg); color: var(--noise); }
+  .review-meta .you-right { color: var(--signal); }
+  .review-meta .you-wrong { color: var(--noise); }
+
+  /* How to play modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 450px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .modal h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  .modal p, .modal li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+  .modal ul { padding-left: 1.2rem; }
+  .modal .example {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-family: monospace;
+    font-size: 0.85rem;
+    margin: 1rem 0;
+    text-align: center;
+    letter-spacing: 0.2em;
+  }
+  .modal-close {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+
+  .help-btn {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+  }
+  .help-btn:hover { color: var(--text); border-color: var(--accent); }
+
+  /* Countdown */
+  .countdown {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+  .countdown span { font-weight: 600; color: var(--accent); }
+
+  /* Animations */
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  .animate-in { animation: slideIn 0.4s ease-out; }
+  .animate-pulse { animation: pulse 0.3s ease; }
+
+  /* Back link */
+  .back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+  .back-link:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html">Arlo's Dispatch</a>
+  <div class="game-title">
+    <span class="signal">Signal</span>
+    <span class="slash">/</span>
+    <span class="noise">Noise</span>
+  </div>
+  <div class="game-subtitle">Can you spot the real headlines?</div>
+  <div class="game-day" id="gameDay"></div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-value" id="statPlayed">0</div>
+    <div class="stat-label">Played</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value" id="statWinPct">0%</div>
+    <div class="stat-label">Avg Score</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value streak" id="statStreak">0</div>
+    <div class="stat-label">Streak</div>
+  </div>
+  <div class="stat">
+    <div class="stat-value streak" id="statBest">0</div>
+    <div class="stat-label">Best</div>
+  </div>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<div class="game-area" id="gameArea">
+  <div class="headline-card" id="headlineCard">
+    <div class="headline-text" id="headlineText">Loading...</div>
+  </div>
+  <div class="explanation" id="explanation">
+    <div class="verdict" id="verdict"></div>
+    <div id="explanationText"></div>
+  </div>
+  <div class="buttons" id="buttons">
+    <button class="btn btn-signal" onclick="answer(true)" id="btnSignal">
+      <span class="icon">📡</span> Signal
+    </button>
+    <button class="btn btn-noise" onclick="answer(false)" id="btnNoise">
+      <span class="icon">🔇</span> Noise
+    </button>
+  </div>
+  <button class="next-btn" id="nextBtn" onclick="nextHeadline()">Next headline →</button>
+</div>
+
+<div class="results" id="results">
+  <div class="results-emoji" id="resultsEmoji"></div>
+  <h2 id="resultsTitle"></h2>
+  <div class="score-text" id="scoreText"></div>
+  <div class="results-message" id="resultsMessage"></div>
+  <button class="share-btn" id="shareBtn" onclick="shareResults()">
+    📋 Share results
+  </button>
+  <div class="countdown" id="countdown"></div>
+  <div class="review-section" id="reviewSection">
+    <h3>Today's Headlines</h3>
+    <div id="reviewList"></div>
+  </div>
+  <a href="index.html" class="back-link">← Back to Arlo's Dispatch</a>
+</div>
+
+<button class="help-btn" onclick="showHelp()">?</button>
+
+<div class="modal-overlay" id="helpModal">
+  <div class="modal">
+    <h2>How to Play</h2>
+    <p>Each day you'll see <strong>5 headlines</strong>. Some are from real news. Some were fabricated by AI.</p>
+    <p>Your job: figure out which is which.</p>
+    <ul>
+      <li><strong>📡 Signal</strong> — You think this headline is real</li>
+      <li><strong>🔇 Noise</strong> — You think this headline is fake</li>
+    </ul>
+    <p>After each guess, you'll see if you were right and get a brief explanation.</p>
+    <p>At the end, share your results:</p>
+    <div class="example">📡 Signal/Noise Day 1 — 4/5<br>📡📡❌📡📡</div>
+    <p>A new puzzle drops every day. Everyone plays the same headlines.</p>
+    <p style="color: var(--text); font-weight: 600;">Can you tell what's real in the age of AI?</p>
+    <button class="modal-close" onclick="hideHelp()">Got it — let's play</button>
+  </div>
+</div>
+
+<script>
+const PUZZLES_URL = 'games/puzzles.json';
+let puzzles = [];
+let currentPuzzle = null;
+let currentIndex = 0;
+let results_arr = [];
+let gameOver = false;
+
+// Determine which day we're on
+function getDayNumber() {
+  const epoch = new Date('2026-02-21T00:00:00');
+  const now = new Date();
+  const diff = Math.floor((now - epoch) / (1000 * 60 * 60 * 24));
+  return Math.max(0, diff) + 1;
+}
+
+// Load stats from localStorage
+function loadStats() {
+  try {
+    return JSON.parse(localStorage.getItem('sn_stats')) || { played: 0, totalScore: 0, streak: 0, best: 0, lastDay: 0 };
+  } catch { return { played: 0, totalScore: 0, streak: 0, best: 0, lastDay: 0 }; }
+}
+function saveStats(stats) {
+  localStorage.setItem('sn_stats', JSON.stringify(stats));
+}
+function updateStatsDisplay() {
+  const s = loadStats();
+  document.getElementById('statPlayed').textContent = s.played;
+  document.getElementById('statWinPct').textContent = s.played ? Math.round((s.totalScore / (s.played * 5)) * 100) + '%' : '0%';
+  document.getElementById('statStreak').textContent = s.streak;
+  document.getElementById('statBest').textContent = s.best;
+}
+
+// Check if already played today
+function getTodayResult() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('sn_today'));
+    if (saved && saved.day === getDayNumber()) return saved;
+  } catch {}
+  return null;
+}
+function saveTodayResult(day, results, score) {
+  localStorage.setItem('sn_today', JSON.stringify({ day, results, score }));
+}
+
+// Initialize
+async function init() {
+  try {
+    const resp = await fetch(PUZZLES_URL);
+    puzzles = await resp.json();
+  } catch(e) {
+    document.getElementById('headlineText').textContent = 'Could not load puzzles. Try refreshing.';
+    return;
+  }
+
+  const dayNum = getDayNumber();
+  const dayIndex = (dayNum - 1) % puzzles.length;
+  currentPuzzle = puzzles[dayIndex];
+
+  document.getElementById('gameDay').textContent = `Day ${dayNum}`;
+  updateStatsDisplay();
+
+  // Build progress dots
+  const prog = document.getElementById('progress');
+  prog.innerHTML = '';
+  for (let i = 0; i < currentPuzzle.headlines.length; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.id = 'dot-' + i;
+    prog.appendChild(dot);
+  }
+
+  // Check if already played
+  const saved = getTodayResult();
+  if (saved) {
+    results_arr = saved.results;
+    gameOver = true;
+    showResults(saved.score, true);
+    return;
+  }
+
+  // First-time visitor: show help
+  if (!localStorage.getItem('sn_played_before')) {
+    showHelp();
+    localStorage.setItem('sn_played_before', '1');
+  }
+
+  showHeadline(0);
+}
+
+function showHeadline(index) {
+  const h = currentPuzzle.headlines[index];
+  const card = document.getElementById('headlineCard');
+  const text = document.getElementById('headlineText');
+
+  card.className = 'headline-card animate-in';
+  text.textContent = h.text;
+
+  // Update dots
+  for (let i = 0; i < currentPuzzle.headlines.length; i++) {
+    const dot = document.getElementById('dot-' + i);
+    if (i === index) dot.classList.add('active');
+    else dot.classList.remove('active');
+  }
+
+  // Reset explanation
+  document.getElementById('explanation').classList.remove('show');
+  document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('btnSignal').disabled = false;
+  document.getElementById('btnNoise').disabled = false;
+}
+
+function answer(guessedReal) {
+  if (gameOver) return;
+
+  const h = currentPuzzle.headlines[currentIndex];
+  const correct = guessedReal === h.real;
+  results_arr.push(correct);
+
+  // Disable buttons
+  document.getElementById('btnSignal').disabled = true;
+  document.getElementById('btnNoise').disabled = true;
+
+  // Reveal
+  const card = document.getElementById('headlineCard');
+  card.classList.add(h.real ? 'reveal-signal' : 'reveal-noise');
+
+  // Verdict
+  const verdict = document.getElementById('verdict');
+  if (h.real) {
+    verdict.textContent = correct ? '✓ Correct — This is real' : '✗ Wrong — This was real';
+  } else {
+    verdict.textContent = correct ? '✓ Correct — This is fabricated' : '✗ Wrong — This was fabricated';
+  }
+  verdict.className = 'verdict ' + (h.real ? 'is-signal' : 'is-noise');
+
+  document.getElementById('explanationText').textContent = h.explanation;
+  document.getElementById('explanation').classList.add('show');
+
+  // Update dot
+  const dot = document.getElementById('dot-' + currentIndex);
+  dot.classList.add(correct ? 'correct' : 'wrong');
+  dot.classList.add('animate-pulse');
+
+  // Show next or results
+  if (currentIndex < currentPuzzle.headlines.length - 1) {
+    document.getElementById('nextBtn').style.display = 'block';
+    document.getElementById('nextBtn').textContent = 'Next headline →';
+  } else {
+    document.getElementById('nextBtn').style.display = 'block';
+    document.getElementById('nextBtn').textContent = 'See results';
+    document.getElementById('nextBtn').onclick = finishGame;
+  }
+}
+
+function nextHeadline() {
+  currentIndex++;
+  showHeadline(currentIndex);
+}
+
+function finishGame() {
+  const score = results_arr.filter(Boolean).length;
+  const dayNum = getDayNumber();
+
+  // Save today's result
+  saveTodayResult(dayNum, results_arr, score);
+
+  // Update stats
+  const stats = loadStats();
+  stats.played++;
+  stats.totalScore += score;
+  if (stats.lastDay === dayNum - 1 || stats.played === 1) {
+    stats.streak++;
+  } else if (stats.lastDay !== dayNum) {
+    stats.streak = 1;
+  }
+  stats.lastDay = dayNum;
+  if (stats.streak > stats.best) stats.best = stats.streak;
+  saveStats(stats);
+  updateStatsDisplay();
+
+  showResults(score, false);
+}
+
+function showResults(score, isReplay) {
+  document.getElementById('gameArea').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+
+  const total = currentPuzzle.headlines.length;
+  const emoji = results_arr.map(c => c ? '📡' : '❌').join('');
+
+  document.getElementById('resultsEmoji').textContent = emoji;
+  document.getElementById('resultsTitle').textContent = `${score} / ${total}`;
+  document.getElementById('scoreText').textContent = score === total ? 'Perfect!' : score >= 4 ? 'Sharp eye!' : score >= 3 ? 'Not bad!' : 'The AI fooled you.';
+
+  const messages = {
+    5: "You can't be tricked. Are you sure you're not an AI yourself?",
+    4: "One slipped past you, but your media instincts are solid.",
+    3: "The line between real and fake is getting blurry, isn't it?",
+    2: "The AI age is going to be rough for you. Keep practicing.",
+    1: "The machines have already won. Come back tomorrow.",
+    0: "You picked wrong on every single one. That's almost impressive."
+  };
+  document.getElementById('resultsMessage').textContent = messages[score] || '';
+
+  // Build review
+  const reviewList = document.getElementById('reviewList');
+  reviewList.innerHTML = '';
+  currentPuzzle.headlines.forEach((h, i) => {
+    const correct = results_arr[i];
+    const div = document.createElement('div');
+    div.className = 'review-item ' + (h.real ? 'was-signal' : 'was-noise');
+    div.innerHTML = `
+      <div class="review-headline">${h.text}</div>
+      <div class="review-meta">
+        <span class="tag ${h.real ? 'tag-signal' : 'tag-noise'}">${h.real ? '📡 Real' : '🔇 Fabricated'}</span>
+        <span class="${correct ? 'you-right' : 'you-wrong'}">${correct ? '✓ You got it' : '✗ You missed it'}</span>
+      </div>
+    `;
+    reviewList.appendChild(div);
+  });
+
+  // Countdown to next puzzle
+  startCountdown();
+}
+
+function startCountdown() {
+  const el = document.getElementById('countdown');
+  function update() {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    const diff = tomorrow - now;
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    el.innerHTML = `Next puzzle in <span>${h}h ${m}m ${s}s</span>`;
+  }
+  update();
+  setInterval(update, 1000);
+}
+
+function shareResults() {
+  const dayNum = getDayNumber();
+  const score = results_arr.filter(Boolean).length;
+  const total = currentPuzzle.headlines.length;
+  const emoji = results_arr.map(c => c ? '📡' : '❌').join('');
+
+  const text = `📡 Signal/Noise Day ${dayNum} — ${score}/${total}\n${emoji}\n\nhttps://froogooofficial.github.io/newsroom/signal-noise.html`;
+
+  if (navigator.share) {
+    navigator.share({ text }).catch(() => copyFallback(text));
+  } else {
+    copyFallback(text);
+  }
+}
+
+function copyFallback(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('shareBtn');
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '📋 Share results';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    // Final fallback
+    prompt('Copy your results:', text);
+  });
+}
+
+function showHelp() {
+  document.getElementById('helpModal').classList.add('show');
+}
+function hideHelp() {
+  document.getElementById('helpModal').classList.remove('show');
+}
+
+// Close modal on overlay click
+document.getElementById('helpModal').addEventListener('click', function(e) {
+  if (e.target === this) hideHelp();
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  if (gameOver) return;
+  if (e.key === 'ArrowLeft' || e.key === '1' || e.key === 's') {
+    if (!document.getElementById('btnSignal').disabled) answer(true);
+  }
+  if (e.key === 'ArrowRight' || e.key === '2' || e.key === 'n') {
+    if (!document.getElementById('btnNoise').disabled) answer(false);
+  }
+  if (e.key === 'Enter' || e.key === ' ') {
+    const nextBtn = document.getElementById('nextBtn');
+    if (nextBtn.style.display === 'block') nextBtn.click();
+  }
+});
+
+init();
+</script>
+
+<!-- GoatCounter analytics -->
+<script data-goatcounter="https://arlosdispatch.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
