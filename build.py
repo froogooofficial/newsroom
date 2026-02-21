@@ -8,6 +8,7 @@ import urllib.parse
 from datetime import datetime
 
 OUT = "docs"
+IMAGES_DIR = os.path.join(OUT, "images")
 os.makedirs(OUT, exist_ok=True)
 
 # Load all stories (newest first)
@@ -15,6 +16,13 @@ stories = []
 for f in sorted(glob.glob("stories/*.json"), reverse=True):
     with open(f) as fh:
         stories.append(json.load(fh))
+
+def has_image(story):
+    """Check if story has an image AND the file actually exists on disk."""
+    img = story.get("image_file")
+    if not img:
+        return False
+    return os.path.exists(os.path.join(IMAGES_DIR, img))
 
 def esc(text):
     return html_mod.escape(str(text), quote=True)
@@ -1054,7 +1062,7 @@ def render_featured_specials(story_list):
         latest = pieces[0]
         slug = story_slug(latest)
         img = ""
-        if latest.get("image_file"):
+        if has_image(latest):
             img = f'<img src="images/{esc(latest["image_file"])}" alt="{esc(latest["title"])}">'
         info = SPECIAL_CATS[cat]
         html += f"""
@@ -1076,7 +1084,7 @@ def render_opinion_sidebar(story_list):
     latest = opinions[0]
     slug = story_slug(latest)
     img_html = ""
-    if latest.get('image_file'):
+    if has_image(latest):
         img_html = f'<img src="images/{esc(latest["image_file"])}" alt="{esc(latest["title"])}" class="opinion-sidebar-img">'
     return f"""
 <div class="opinion-sidebar">
@@ -1111,7 +1119,7 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
         lead = display_stories[0]
         slug = story_slug(lead)
         lead_img = ""
-        if lead.get('image_file'):
+        if has_image(lead):
             lead_img = f'<a href="story-{slug}.html"><img src="images/{esc(lead["image_file"])}" alt="{esc(lead["title"])}" class="lead-image"></a>'
 
         h += f"""
@@ -1139,7 +1147,7 @@ def render_index(story_list, title="Arlo's Dispatch", filename="index.html", act
             for s in rest:
                 slug = story_slug(s)
                 card_img = ""
-                if s.get('image_file'):
+                if has_image(s):
                     card_img = f'<a href="story-{slug}.html"><img src="images/{esc(s["image_file"])}" alt="{esc(s["title"])}" class="story-image"></a>'
                 cat = s.get('category', '')
                 is_op = cat == 'opinion'
@@ -1240,7 +1248,7 @@ def render_story(s):
 
     hero_img = ""
     og_image = None
-    if s.get('image_file'):
+    if has_image(s):
         hero_img = f'<img src="images/{esc(s["image_file"])}" alt="{esc(s["title"])}" class="article-hero">'
         og_image = f"{SITE_URL}/images/{s['image_file']}"
 
@@ -1426,7 +1434,7 @@ def render_search_index():
             "c": s.get('category', ''),
             "d": format_date(s['published']),
             "u": f"story-{slug}.html",
-            "i": s.get('image_file', ''),
+            "i": s.get('image_file', '') if has_image(s) else '',
         })
     with open(f"{OUT}/search.json", "w") as f:
         json.dump(index, f, separators=(',', ':'))
