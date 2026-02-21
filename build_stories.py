@@ -244,32 +244,119 @@ html, body {{
 .progress-segment.done .fill {{ width: 100%; }}
 .progress-segment.active .fill {{ width: 100%; transition: width var(--card-duration, 8s) linear; }}
 
+/* ─── Story cards ─── */
 .story-card {{
   flex: 1; display: none; position: relative; overflow: hidden;
 }}
 .story-card.active {{
   display: flex; flex-direction: column; justify-content: flex-end;
-  animation: cardIn 0.2s ease;
 }}
-@keyframes cardIn {{ from {{ opacity: 0.6; transform: scale(1.01); }} to {{ opacity: 1; transform: scale(1); }} }}
+
+/* ─── Ken Burns background animations ─── */
+@keyframes kbZoomIn {{
+  from {{ transform: scale(1); }} to {{ transform: scale(1.12); }}
+}}
+@keyframes kbZoomOut {{
+  from {{ transform: scale(1.12); }} to {{ transform: scale(1); }}
+}}
+@keyframes kbPanLeft {{
+  from {{ transform: translateX(0%) scale(1.15); }}
+  to {{ transform: translateX(-8%) scale(1.15); }}
+}}
+@keyframes kbPanRight {{
+  from {{ transform: translateX(-8%) scale(1.15); }}
+  to {{ transform: translateX(0%) scale(1.15); }}
+}}
 
 .card-bg {{
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   background-size: cover; background-position: center top;
-  z-index: 0; transition: opacity 0.3s;
+  z-index: 0;
+  will-change: transform;
 }}
+/* Ken Burns applied via JS data attribute */
+.story-card.active .card-bg[data-kb="zoom-in"] {{
+  animation: kbZoomIn 10s ease-in-out forwards;
+}}
+.story-card.active .card-bg[data-kb="zoom-out"] {{
+  animation: kbZoomOut 10s ease-in-out forwards;
+}}
+.story-card.active .card-bg[data-kb="pan-left"] {{
+  animation: kbPanLeft 10s ease-in-out forwards;
+}}
+.story-card.active .card-bg[data-kb="pan-right"] {{
+  animation: kbPanRight 10s ease-in-out forwards;
+}}
+
+/* Gradient overlays — default */
 .card-bg::after {{
   content: ''; position: absolute; bottom: 0; left: 0; right: 0;
   height: 80%;
   background: linear-gradient(to top, rgba(8,8,13,0.97) 0%, rgba(8,8,13,0.6) 45%, transparent 100%);
   z-index: 1;
 }}
+/* Quote cards — heavier overlay */
+.story-card[data-type="quote"] .card-bg::after {{
+  height: 100%;
+  background: linear-gradient(to top, rgba(8,8,13,0.98) 0%, rgba(8,8,13,0.8) 50%, rgba(8,8,13,0.4) 100%);
+}}
+/* Stat cards — center vignette */
+.story-card[data-type="stat"] .card-bg::after {{
+  height: 100%;
+  background: radial-gradient(ellipse at center, rgba(8,8,13,0.85) 0%, rgba(8,8,13,0.5) 55%, rgba(8,8,13,0.3) 100%);
+}}
+/* Takeaway cards — warm tint */
+.story-card[data-type="takeaway"] .card-bg::after {{
+  height: 100%;
+  background: linear-gradient(to top, rgba(8,8,13,0.97) 0%, rgba(30,20,8,0.7) 50%, rgba(8,8,13,0.3) 100%);
+}}
 
+/* ─── Content entrance animations ─── */
+@keyframes fadeUp {{
+  from {{ opacity: 0; transform: translateY(28px); }}
+  to {{ opacity: 1; transform: translateY(0); }}
+}}
+@keyframes slideInLeft {{
+  from {{ opacity: 0; transform: translateX(-36px); }}
+  to {{ opacity: 1; transform: translateX(0); }}
+}}
+@keyframes scaleUp {{
+  from {{ opacity: 0; transform: scale(0.82); }}
+  to {{ opacity: 1; transform: scale(1); }}
+}}
+@keyframes dropIn {{
+  from {{ opacity: 0; transform: translateY(-40px); }}
+  to {{ opacity: 1; transform: translateY(0); }}
+}}
+@keyframes fadeIn {{
+  from {{ opacity: 0; }} to {{ opacity: 1; }}
+}}
+@keyframes pulseGlow {{
+  0%, 100% {{ text-shadow: 0 0 20px rgba(201,169,110,0.3); }}
+  50% {{ text-shadow: 0 0 40px rgba(201,169,110,0.6); }}
+}}
+
+/* Card content area */
 .card-content {{
   position: relative; z-index: 2;
   padding: 20px 22px 48px;
   max-height: 60vh; overflow: hidden;
 }}
+
+/* ─── Title card — staggered entrance ─── */
+.story-card.active[data-type="title"] .card-category {{
+  animation: fadeUp 0.5s ease both; animation-delay: 0.1s;
+}}
+.story-card.active[data-type="title"] .card-title {{
+  animation: fadeUp 0.5s ease both; animation-delay: 0.25s;
+}}
+.story-card.active[data-type="title"] .card-summary {{
+  animation: fadeUp 0.5s ease both; animation-delay: 0.4s;
+}}
+.story-card.active[data-type="title"] .card-meta {{
+  animation: fadeUp 0.4s ease both; animation-delay: 0.55s;
+}}
+
 .card-category {{
   font-size: 11px; text-transform: uppercase; letter-spacing: 2.5px;
   color: #c9a96e; margin-bottom: 10px; font-family: 'Inter', sans-serif;
@@ -284,19 +371,136 @@ html, body {{
   font-size: 15px; line-height: 1.55; color: #ccc;
   text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }}
+.card-meta {{
+  font-size: 11px; color: #666; margin-top: 14px;
+  font-family: 'Inter', sans-serif; letter-spacing: 0.3px;
+}}
+
+/* ─── Text cards ─── */
+.story-card.active[data-type="text"] .card-content {{
+  animation: fadeUp 0.45s ease both;
+}}
 .card-text {{
   font-size: 16px; line-height: 1.7; color: #e0dcd4;
   text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+}}
+.card-text strong {{ color: #c9a96e; }}
+.card-text mark {{
+  background: linear-gradient(to bottom, transparent 55%, rgba(201,169,110,0.35) 55%);
+  color: inherit; padding: 0 2px;
+}}
+/* Drop cap on first text card after title */
+.story-card[data-first-text="true"] .card-text::first-letter {{
+  font-family: 'Playfair Display', serif;
+  font-size: 52px; float: left; line-height: 0.78;
+  margin-right: 8px; margin-top: 4px;
+  color: #c9a96e;
+  text-shadow: 0 2px 10px rgba(201,169,110,0.3);
+}}
+
+/* ─── Quote cards ─── */
+.story-card.active[data-type="quote"] .card-content {{
+  animation: slideInLeft 0.5s ease both;
 }}
 .card-text.quote {{
   font-style: italic; font-size: 21px; line-height: 1.45;
   border-left: 3px solid #c9a96e; padding-left: 18px;
   color: #f0ece4;
 }}
-.card-text strong {{ color: #c9a96e; }}
-.card-meta {{
-  font-size: 11px; color: #666; margin-top: 14px;
-  font-family: 'Inter', sans-serif; letter-spacing: 0.3px;
+.quote-attr {{
+  display: block; font-size: 12px; font-style: normal;
+  color: #888; margin-top: 12px; font-family: 'Inter', sans-serif;
+}}
+
+/* ─── Stat cards ─── */
+.story-card.active[data-type="stat"] .card-content {{
+  animation: scaleUp 0.5s ease both;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center;
+}}
+.stat-number {{
+  font-family: 'Playfair Display', serif;
+  font-size: 56px; font-weight: 800; line-height: 1;
+  background: linear-gradient(135deg, #c9a96e, #f0ece4);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: pulseGlow 3s ease-in-out infinite;
+}}
+.stat-label {{
+  font-family: 'Inter', sans-serif; font-size: 14px;
+  color: #aaa; text-transform: uppercase; letter-spacing: 2px;
+  margin-top: 10px;
+}}
+
+/* ─── Takeaway cards ─── */
+.story-card.active[data-type="takeaway"] .card-content {{
+  animation: dropIn 0.45s ease both;
+}}
+.takeaway-box {{
+  background: rgba(201,169,110,0.12);
+  border: 1px solid rgba(201,169,110,0.25);
+  border-radius: 12px; padding: 20px 18px;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}}
+.takeaway-label {{
+  font-family: 'Inter', sans-serif; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 2px;
+  color: #c9a96e; font-weight: 600; margin-bottom: 10px;
+}}
+.takeaway-text {{
+  font-size: 18px; line-height: 1.5; color: #f0ece4;
+  font-family: 'Playfair Display', serif; font-weight: 600;
+}}
+
+/* ─── End card ─── */
+.story-card.active[data-type="end"] .card-content {{
+  animation: fadeIn 0.5s ease both;
+}}
+.card-end {{
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; gap: 14px;
+}}
+.end-logo {{ font-size: 36px; }}
+.end-line {{ width: 40px; height: 1px; background: #333; }}
+.end-title {{
+  font-size: 12px; color: #c9a96e; text-transform: uppercase;
+  letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 600;
+}}
+.end-next {{
+  font-size: 13px; color: #555; font-family: 'Inter', sans-serif;
+  cursor: pointer; padding: 8px 20px; border: 1px solid #333;
+  border-radius: 20px; transition: all 0.2s;
+}}
+.end-next:hover {{ color: #c9a96e; border-color: #c9a96e; }}
+
+/* Reaction bar on end card */
+.reaction-bar {{
+  display: flex; gap: 18px; justify-content: center; margin-top: 8px;
+}}
+.reaction {{
+  font-size: 26px; background: none; border: none;
+  cursor: pointer; transition: transform 0.2s;
+  filter: grayscale(0.6) brightness(0.8);
+  padding: 4px;
+}}
+.reaction:active {{ transform: scale(1.5); }}
+.reaction.selected {{ filter: none; transform: scale(1.2); }}
+
+/* Share button */
+.share-btn {{
+  font-size: 12px; color: #666; font-family: 'Inter', sans-serif;
+  cursor: pointer; padding: 6px 16px; border: 1px solid #2a2a2a;
+  border-radius: 16px; transition: all 0.2s; margin-top: 4px;
+}}
+.share-btn:hover {{ color: #c9a96e; border-color: #c9a96e; }}
+
+/* ─── Location tag ─── */
+.location-tag {{
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(201,169,110,0.1); padding: 3px 10px;
+  border-radius: 10px; font-size: 11px;
+  font-family: 'Inter', sans-serif; color: #c9a96e;
+  margin-bottom: 10px;
 }}
 
 .slide-counter {{
@@ -320,29 +524,23 @@ html, body {{
 }}
 .close-btn:hover {{ color: white; }}
 
-/* End card */
-.card-end {{
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: center; text-align: center; gap: 14px;
-}}
-.end-logo {{ font-size: 36px; }}
-.end-line {{ width: 40px; height: 1px; background: #333; }}
-.end-title {{
-  font-size: 12px; color: #c9a96e; text-transform: uppercase;
-  letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 600;
-}}
-.end-next {{
-  font-size: 13px; color: #555; font-family: 'Inter', sans-serif;
-  cursor: pointer; padding: 8px 20px; border: 1px solid #333;
-  border-radius: 20px; transition: all 0.2s;
-}}
-.end-next:hover {{ color: #c9a96e; border-color: #c9a96e; }}
-
 /* Desktop constraint */
 @media (min-width: 500px) {{
   .story-viewer {{ max-width: 420px; margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.5); }}
   .feed {{ max-width: 500px; margin: 0 auto; }}
   .stories-bar {{ max-width: 500px; margin: 0 auto; left: auto; }}
+}}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {{
+  .card-bg, .card-content, .story-card.active .card-bg,
+  .story-card.active[data-type] .card-content,
+  .story-card.active[data-type="title"] .card-category,
+  .story-card.active[data-type="title"] .card-title,
+  .story-card.active[data-type="title"] .card-summary,
+  .story-card.active[data-type="title"] .card-meta {{
+    animation: none !important;
+  }}
 }}
 </style>
 </head>
@@ -434,24 +632,64 @@ function parseCards(s) {{
   const cards = [{{type:'title'}}];
   const paras = s.content.split('\\n').filter(p => p.trim());
   let buf = '';
-  
+  let firstText = true;
+
   for (let p of paras) {{
     p = p.trim();
+    // Quote card
     if (p.startsWith('>>')) {{
-      if (buf) {{ cards.push({{type:'text', text:buf.trim()}}); buf=''; }}
+      if (buf) {{ cards.push({{type:'text', text:buf.trim(), firstText}}); if(firstText) firstText=false; buf=''; }}
       cards.push({{type:'quote', text:p.replace(/^>>\\s*/, '')}});
       continue;
     }}
+    // Stat card: ## 32,000 | Label
+    if (p.startsWith('## ')) {{
+      if (buf) {{ cards.push({{type:'text', text:buf.trim(), firstText}}); if(firstText) firstText=false; buf=''; }}
+      const parts = p.replace(/^##\\s*/, '').split('|').map(x => x.trim());
+      cards.push({{type:'stat', number: parts[0], label: parts[1] || ''}});
+      continue;
+    }}
+    // Takeaway card: !! text
+    if (p.startsWith('!! ')) {{
+      if (buf) {{ cards.push({{type:'text', text:buf.trim(), firstText}}); if(firstText) firstText=false; buf=''; }}
+      cards.push({{type:'takeaway', text:p.replace(/^!!\\s*/, '')}});
+      continue;
+    }}
+    // Regular text
     if ((buf + '\\n\\n' + p).length > 320 && buf) {{
-      cards.push({{type:'text', text:buf.trim()}});
+      cards.push({{type:'text', text:buf.trim(), firstText}});
+      if(firstText) firstText=false;
       buf = p;
     }} else {{
       buf += (buf ? '\\n\\n' : '') + p;
     }}
   }}
-  if (buf.trim()) cards.push({{type:'text', text:buf.trim()}});
+  if (buf.trim()) {{ cards.push({{type:'text', text:buf.trim(), firstText}}); }}
   cards.push({{type:'end'}});
-  return cards.slice(0, 12);
+  return cards.slice(0, 14);
+}}
+
+// Ken Burns pattern: alternate between effects
+const KB_PATTERNS = ['zoom-in','zoom-out','pan-left','pan-right'];
+function getKB(cardIndex) {{
+  return KB_PATTERNS[cardIndex % KB_PATTERNS.length];
+}}
+
+// Card duration by type
+function getCardDuration(type) {{
+  if (type === 'stat' || type === 'takeaway') return 6000;
+  if (type === 'end') return 999999;
+  return 8000;
+}}
+
+function formatText(txt) {{
+  // Bold → gold strong
+  txt = txt.replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>');
+  // ==highlight== → mark
+  txt = txt.replace(/==(.+?)==/g, '<mark>$1</mark>');
+  // 📍 Location → location tag
+  txt = txt.replace(/📍\\s*(.+?)(?:\\n|$)/g, '<div class="location-tag">$1</div>');
+  return txt;
 }}
 
 function buildCards(idx) {{
@@ -459,26 +697,27 @@ function buildCards(idx) {{
   const container = document.getElementById('cardsContainer');
   const progress = document.getElementById('progressBars');
   container.innerHTML = ''; progress.innerHTML = '';
-  
+
   const cards = parseCards(s);
   totalCards = cards.length;
   const images = s.images || [];
-  
+
   for (let i = 0; i < cards.length; i++) {{
-    // Progress bar
     const seg = document.createElement('div');
     seg.className = 'progress-segment';
     seg.innerHTML = '<div class="fill"></div>';
     progress.appendChild(seg);
-    
-    // Card
+
     const card = document.createElement('div');
     card.className = 'story-card';
     const c = cards[i];
-    
-    // Pick image: use card-specific image or cycle through available
+
+    // Set card type as data attribute for CSS targeting
+    card.setAttribute('data-type', c.type);
+
     const img = images[i] || images[i % images.length] || images[0] || '';
-    
+    const kb = getKB(i);
+
     if (c.type === 'end') {{
       card.innerHTML = `
         <div class="card-bg" style="background-image:url(images/${{img}});filter:blur(6px) brightness(0.25);"></div>
@@ -486,32 +725,67 @@ function buildCards(idx) {{
           <div class="end-logo">🦞</div>
           <div class="end-line"></div>
           <div class="end-title">Arlo's Dispatch</div>
+          <div class="reaction-bar">
+            <button class="reaction" onclick="react(this,'🔥')">🔥</button>
+            <button class="reaction" onclick="react(this,'💡')">💡</button>
+            <button class="reaction" onclick="react(this,'😮')">😮</button>
+            <button class="reaction" onclick="react(this,'👏')">👏</button>
+          </div>
           <div class="end-next" onclick="${{idx < stories.length - 1 ? `openStory(${{idx+1}})` : 'closeStory()'}}">
             ${{idx < stories.length - 1 ? 'Next story →' : 'Back to feed'}}
           </div>
+          <div class="share-btn" onclick="shareStory(${{idx}})">Share this story</div>
         </div>`;
-    }} else {{
-      const bgStyle = `background-image:url(images/${{img}})`;
-      let inner = '';
-      
-      if (c.type === 'title') {{
-        inner = `
+    }} else if (c.type === 'stat') {{
+      card.innerHTML = `
+        <div class="card-bg" data-kb="${{kb}}" style="background-image:url(images/${{img}})"></div>
+        <div class="card-content">
+          <div class="stat-number">${{c.number}}</div>
+          <div class="stat-label">${{c.label}}</div>
+        </div>`;
+    }} else if (c.type === 'takeaway') {{
+      card.innerHTML = `
+        <div class="card-bg" data-kb="${{kb}}" style="background-image:url(images/${{img}})"></div>
+        <div class="card-content">
+          <div class="takeaway-box">
+            <div class="takeaway-label">⚡ Key Takeaway</div>
+            <div class="takeaway-text">${{formatText(c.text)}}</div>
+          </div>
+        </div>`;
+    }} else if (c.type === 'quote') {{
+      // Split quote and attribution if " — " exists
+      let quoteText = c.text;
+      let attr = '';
+      const dashIdx = quoteText.lastIndexOf(' — ');
+      if (dashIdx > 0) {{
+        attr = quoteText.slice(dashIdx + 3);
+        quoteText = quoteText.slice(0, dashIdx);
+      }}
+      card.innerHTML = `
+        <div class="card-bg" data-kb="${{kb}}" style="background-image:url(images/${{img}})"></div>
+        <div class="card-content">
+          <div class="card-text quote">${{quoteText}}${{attr ? `<span class="quote-attr">— ${{attr}}</span>` : ''}}</div>
+        </div>`;
+    }} else if (c.type === 'title') {{
+      card.innerHTML = `
+        <div class="card-bg" data-kb="zoom-in" style="background-image:url(images/${{img}})"></div>
+        <div class="card-content">
           <div class="card-category">${{CAT[s.category]||'📰'}} ${{s.category}}</div>
           <div class="card-title">${{s.title}}</div>
           <div class="card-summary">${{s.summary}}</div>
-          <div class="card-meta">By ${{s.writer}} · Arlo's Dispatch</div>`;
-      }} else if (c.type === 'quote') {{
-        inner = `<div class="card-text quote">${{c.text}}</div>`;
-      }} else {{
-        const txt = c.text.replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>');
-        inner = `<div class="card-text">${{txt}}</div>`;
-      }}
-      
+          <div class="card-meta">By ${{s.writer}} · Arlo's Dispatch</div>
+        </div>`;
+    }} else {{
+      // Text card
+      if (c.firstText) card.setAttribute('data-first-text', 'true');
+      const txt = formatText(c.text);
       card.innerHTML = `
-        <div class="card-bg" style="${{bgStyle}}"></div>
-        <div class="card-content">${{inner}}</div>`;
+        <div class="card-bg" data-kb="${{kb}}" style="background-image:url(images/${{img}})"></div>
+        <div class="card-content">
+          <div class="card-text">${{txt}}</div>
+        </div>`;
     }}
-    
+
     container.appendChild(card);
   }}
   return totalCards;
@@ -521,19 +795,63 @@ function showCard(idx) {{
   const cards = document.querySelectorAll('.story-card');
   const segs = document.querySelectorAll('.progress-segment');
   if (idx < 0 || idx >= cards.length) return;
-  
-  cards.forEach((c, i) => c.classList.toggle('active', i === idx));
+
+  cards.forEach((c, i) => {{
+    if (i === idx) {{
+      c.classList.add('active');
+      // Re-trigger Ken Burns by cloning bg
+      const bg = c.querySelector('.card-bg[data-kb]');
+      if (bg) {{
+        const clone = bg.cloneNode(true);
+        bg.parentNode.replaceChild(clone, bg);
+      }}
+    }} else {{
+      c.classList.remove('active');
+    }}
+  }});
   segs.forEach((s, i) => {{
     s.classList.remove('active', 'done');
     if (i < idx) s.classList.add('done');
     if (i === idx) s.classList.add('active');
   }});
-  
+
   curCard = idx;
   document.getElementById('slideCounter').textContent = `${{idx+1}}/${{totalCards}}`;
-  
+
+  // Duration based on card type
+  const activeCard = document.querySelectorAll('.story-card')[idx];
+  const cardType = activeCard?.getAttribute('data-type') || 'text';
+  const duration = getCardDuration(cardType);
+
+  // Set CSS variable for progress bar timing
+  activeCard?.closest('.story-viewer')?.style.setProperty('--card-duration', (duration/1000) + 's');
+  const activeSeg = document.querySelectorAll('.progress-segment')[idx];
+  if (activeSeg) activeSeg.style.setProperty('--card-duration', (duration/1000) + 's');
+
   clearTimeout(timer);
-  if (!paused) timer = setTimeout(nextCard, 8000);
+  if (!paused && cardType !== 'end') timer = setTimeout(nextCard, duration);
+}}
+
+function react(btn, emoji) {{
+  btn.classList.toggle('selected');
+  // Simple haptic feedback on mobile
+  if (navigator.vibrate) navigator.vibrate(30);
+}}
+
+function shareStory(idx) {{
+  const s = stories[idx];
+  if (navigator.share) {{
+    navigator.share({{
+      title: s.title,
+      text: s.summary,
+      url: window.location.href
+    }}).catch(() => {{}});
+  }} else {{
+    // Fallback: copy to clipboard
+    navigator.clipboard?.writeText(window.location.href);
+    const btn = document.querySelector('.share-btn');
+    if (btn) {{ btn.textContent = 'Link copied!'; setTimeout(() => btn.textContent = 'Share this story', 2000); }}
+  }}
 }}
 
 function openStory(idx) {{
