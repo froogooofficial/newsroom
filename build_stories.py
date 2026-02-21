@@ -525,10 +525,24 @@ html, body {{
 .close-btn:hover {{ color: white; }}
 
 /* Desktop constraint */
-@media (min-width: 500px) {{
-  .story-viewer {{ max-width: 420px; margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.5); }}
-  .feed {{ max-width: 500px; margin: 0 auto; }}
-  .stories-bar {{ max-width: 500px; margin: 0 auto; left: auto; }}
+@media (min-width: 600px) {{
+  body {{
+    display: flex; flex-direction: column; align-items: center;
+  }}
+  .stories-bar {{
+    left: 50%; transform: translateX(-50%); right: auto;
+    max-width: 560px; width: 100%;
+  }}
+  .feed {{
+    max-width: 560px; width: 100%; margin: 0 auto;
+  }}
+  .story-viewer {{
+    max-width: 420px; left: 50%; transform: translateX(-50%); right: auto;
+    box-shadow: 0 0 80px rgba(0,0,0,0.6);
+    border-left: 1px solid #1a1a22; border-right: 1px solid #1a1a22;
+  }}
+  .feed-lead {{ border-radius: 16px; }}
+  .feed-lead img {{ height: 320px; }}
 }}
 
 /* Reduce motion for accessibility */
