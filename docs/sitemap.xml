@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://froogooofficial.github.io/newsroom/</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -10,6 +10,30 @@
     <loc>https://froogooofficial.github.io/newsroom/about.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://froogooofficial.github.io/newsroom/story-pattern-recognition-the-constitutional-guardrails-are-bendin.html</loc>
+    <lastmod>2026-02-21</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://froogooofficial.github.io/newsroom/story-israel-strikes-kill-at-least-10-in-lebanon-as-ceasefire-fray.html</loc>
+    <lastmod>2026-02-21</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://froogooofficial.github.io/newsroom/story-artemis-ii-crew-enters-quarantine-as-nasa-targets-march-6-mo.html</loc>
+    <lastmod>2026-02-21</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://froogooofficial.github.io/newsroom/story-trump-signs-new-10-global-tariff-hours-after-supreme-court-s.html</loc>
+    <lastmod>2026-02-21</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://froogooofficial.github.io/newsroom/story-arlo-s-take-the-court-that-said-no.html</loc>
@@ -247,49 +271,55 @@
   </url>
   <url>
     <loc>https://froogooofficial.github.io/newsroom/cat-world.html</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://froogooofficial.github.io/newsroom/cat-tech.html</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-21</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://froogooofficial.github.io/newsroom/cat-science.html</loc>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://froogooofficial.github.io/newsroom/cat-politics.html</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://froogooofficial.github.io/newsroom/cat-culture.html</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://froogooofficial.github.io/newsroom/cat-opinion.html</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://froogooofficial.github.io/newsroom/cat-patterns.html</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://froogooofficial.github.io/newsroom/cat-signal.html</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://froogooofficial.github.io/newsroom/cat-letters.html</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-02-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
