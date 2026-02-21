@@ -93,6 +93,9 @@ html, body {{
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }}
+/* Fix mobile viewport height (accounts for browser chrome) */
+html {{ height: -webkit-fill-available; }}
+body {{ min-height: -webkit-fill-available; }}
 
 /* ─── Stories bar ─── */
 .stories-bar {{
@@ -232,7 +235,7 @@ html, body {{
 /* Frame: full-screen on mobile, phone-shape on desktop */
 .story-frame {{
   position: relative; flex: 1; display: flex; flex-direction: column;
-  overflow: hidden;
+  overflow: hidden; height: 100%;
 }}
 
 .progress-bar-container {{
@@ -253,6 +256,7 @@ html, body {{
 /* ─── Story cards ─── */
 .story-card {{
   flex: 1; display: none; position: relative; overflow: hidden;
+  min-height: 0;
 }}
 .story-card.active {{
   display: flex; flex-direction: column; justify-content: flex-end;
@@ -345,8 +349,22 @@ html, body {{
 /* Card content area */
 .card-content {{
   position: relative; z-index: 2;
-  padding: 20px 22px 48px;
-  max-height: 60vh; overflow: hidden;
+  padding: 16px 20px 32px;
+  max-height: 55vh; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}}
+.card-content::-webkit-scrollbar {{ display: none; }}
+
+/* Stat/takeaway cards: center content vertically */
+.story-card[data-type="stat"] {{
+  justify-content: center !important;
+}}
+.story-card[data-type="stat"] .card-content {{
+  max-height: none; overflow: visible;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center;
+  padding: 20px;
 }}
 
 /* ─── Title card — staggered entrance ─── */
@@ -364,21 +382,21 @@ html, body {{
 }}
 
 .card-category {{
-  font-size: 11px; text-transform: uppercase; letter-spacing: 2.5px;
-  color: #c9a96e; margin-bottom: 10px; font-family: 'Inter', sans-serif;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+  color: #c9a96e; margin-bottom: 8px; font-family: 'Inter', sans-serif;
   font-weight: 600;
 }}
 .card-title {{
-  font-size: 28px; line-height: 1.2; font-weight: 700;
-  margin-bottom: 14px; text-shadow: 0 2px 16px rgba(0,0,0,0.9);
+  font-size: 24px; line-height: 1.2; font-weight: 700;
+  margin-bottom: 10px; text-shadow: 0 2px 16px rgba(0,0,0,0.9);
   font-family: 'Playfair Display', serif;
 }}
 .card-summary {{
-  font-size: 15px; line-height: 1.55; color: #ccc;
+  font-size: 14px; line-height: 1.5; color: #ccc;
   text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }}
 .card-meta {{
-  font-size: 11px; color: #666; margin-top: 14px;
+  font-size: 10px; color: #666; margin-top: 10px;
   font-family: 'Inter', sans-serif; letter-spacing: 0.3px;
 }}
 
@@ -387,7 +405,7 @@ html, body {{
   animation: fadeUp 0.45s ease both;
 }}
 .card-text {{
-  font-size: 16px; line-height: 1.7; color: #e0dcd4;
+  font-size: 15px; line-height: 1.65; color: #e0dcd4;
   text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }}
 .card-text strong {{ color: #c9a96e; }}
@@ -398,8 +416,8 @@ html, body {{
 /* Drop cap on first text card after title */
 .story-card[data-first-text="true"] .card-text::first-letter {{
   font-family: 'Playfair Display', serif;
-  font-size: 52px; float: left; line-height: 0.78;
-  margin-right: 8px; margin-top: 4px;
+  font-size: 42px; float: left; line-height: 0.78;
+  margin-right: 6px; margin-top: 3px;
   color: #c9a96e;
   text-shadow: 0 2px 10px rgba(201,169,110,0.3);
 }}
@@ -409,8 +427,8 @@ html, body {{
   animation: slideInLeft 0.5s ease both;
 }}
 .card-text.quote {{
-  font-style: italic; font-size: 21px; line-height: 1.45;
-  border-left: 3px solid #c9a96e; padding-left: 18px;
+  font-style: italic; font-size: 18px; line-height: 1.4;
+  border-left: 3px solid #c9a96e; padding-left: 16px;
   color: #f0ece4;
 }}
 .quote-attr {{
@@ -421,21 +439,19 @@ html, body {{
 /* ─── Stat cards ─── */
 .story-card.active[data-type="stat"] .card-content {{
   animation: scaleUp 0.5s ease both;
-  display: flex; flex-direction: column; align-items: center;
-  justify-content: center; text-align: center;
 }}
 .stat-number {{
   font-family: 'Playfair Display', serif;
-  font-size: 56px; font-weight: 800; line-height: 1;
+  font-size: 48px; font-weight: 800; line-height: 1;
   background: linear-gradient(135deg, #c9a96e, #f0ece4);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: pulseGlow 3s ease-in-out infinite;
 }}
 .stat-label {{
-  font-family: 'Inter', sans-serif; font-size: 14px;
-  color: #aaa; text-transform: uppercase; letter-spacing: 2px;
-  margin-top: 10px;
+  font-family: 'Inter', sans-serif; font-size: 13px;
+  color: #aaa; text-transform: uppercase; letter-spacing: 1.5px;
+  margin-top: 8px; padding: 0 20px;
 }}
 
 /* ─── Takeaway cards ─── */
@@ -454,7 +470,7 @@ html, body {{
   color: #c9a96e; font-weight: 600; margin-bottom: 10px;
 }}
 .takeaway-text {{
-  font-size: 18px; line-height: 1.5; color: #f0ece4;
+  font-size: 16px; line-height: 1.45; color: #f0ece4;
   font-family: 'Playfair Display', serif; font-weight: 600;
 }}
 
