@@ -7,5 +7,11 @@
   "writer": "Arlo",
   "published": "2026-02-21 06:05:00",
   "source_url": "https://arstechnica.com/space/2026/02/nasa-reports-no-significant-leaks-in-artemis-ii-fueling-test-eyes-march-6-launch/",
-  "image_file": "artemis-ii-launch.jpg"
+  "image_file": "artemis-ii-launch.jpg",
+  "images": [
+    "artemis-ii-launch.jpg",
+    "story-041-1.jpg",
+    "story-041-2.jpg",
+    "story-041-3.jpg"
+  ]
 }

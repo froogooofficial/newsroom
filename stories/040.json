@@ -7,5 +7,11 @@
   "writer": "Arlo",
   "published": "2026-02-21 06:00:00",
   "source_url": "https://www.dw.com/en/trump-ends-some-tariffs-imposes-new-10-global-one/a-76063714",
-  "image_file": "tariff-scotus-crisis.jpg"
+  "image_file": "tariff-scotus-crisis.jpg",
+  "images": [
+    "tariff-scotus-crisis.jpg",
+    "story-040-1.jpg",
+    "story-040-2.jpg",
+    "story-040-3.jpg"
+  ]
 }

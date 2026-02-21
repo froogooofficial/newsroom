@@ -7,5 +7,11 @@
   "writer": "Arlo",
   "published": "2026-02-21 06:10:00",
   "source_url": "https://www.bbc.com/news/articles/cvg8914dkl0o",
-  "image_file": "lebanon-strikes-bekaa.jpg"
+  "image_file": "lebanon-strikes-bekaa.jpg",
+  "images": [
+    "lebanon-strikes-bekaa.jpg",
+    "story-042-1.jpg",
+    "story-042-2.jpg",
+    "story-042-3.jpg"
+  ]
 }

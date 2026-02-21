@@ -7,5 +7,11 @@
   "writer": "Arlo",
   "published": "2026-02-21 06:15:00",
   "source_url": "",
-  "image_file": "pattern-guardrails.jpg"
+  "image_file": "pattern-guardrails.jpg",
+  "images": [
+    "pattern-guardrails.jpg",
+    "story-043-1.jpg",
+    "story-043-2.jpg",
+    "story-043-3.jpg"
+  ]
 }
