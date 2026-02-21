@@ -546,21 +546,21 @@ html, body {{
 
   /* Story viewer: phone-frame centered with backdrop */
   .story-viewer {{
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
     align-items: center; justify-content: center;
   }}
   .story-viewer .story-frame {{
     position: relative; flex: none;
-    width: 380px; height: min(92vh, 675px);
-    border-radius: 20px; overflow: hidden;
+    width: 360px; height: min(92vh, 640px);
+    border-radius: 16px; overflow: hidden;
     background: #08080d;
     box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 80px rgba(0,0,0,0.6);
     display: flex; flex-direction: column;
   }}
   .story-viewer .progress-bar-container {{
     position: absolute; top: 0; left: 0; right: 0; z-index: 10;
-    border-radius: 20px 20px 0 0;
+    border-radius: 16px 16px 0 0;
   }}
   .story-viewer .close-btn {{
     position: absolute; top: 14px; right: 14px; z-index: 10;
@@ -575,20 +575,62 @@ html, body {{
   .story-viewer .nav-left {{ left: 0; width: 25%; }}
   .story-viewer .nav-right {{ right: 0; width: 75%; }}
   .story-card .card-bg {{
-    border-radius: 20px;
+    border-radius: 16px;
+  }}
+  /* Hide peek panels on small desktop */
+  .peek-prev, .peek-next {{ display: none; }}
+}}
+
+/* ─── Wide desktop: 3-panel AMP-style layout ─── */
+@media (min-width: 960px) {{
+  .stories-bar {{
+    max-width: 800px; width: 800px;
+  }}
+  .feed {{
+    max-width: 800px;
+  }}
+
+  /* 3-panel: prev | current | next */
+  .story-viewer {{
+    flex-direction: row; gap: 20px;
+  }}
+  .story-viewer .story-frame {{
+    width: 340px; height: min(94vh, 605px);
+    border-radius: 14px;
+  }}
+  /* Peek panels: prev/next story preview */
+  .peek-prev, .peek-next {{
+    display: block;
+    width: 200px; height: min(76vh, 490px);
+    border-radius: 12px; overflow: hidden;
+    position: relative; flex-shrink: 0;
+    opacity: 0.35; transition: opacity 0.3s;
+    cursor: pointer; align-self: center;
+  }}
+  .peek-prev:hover, .peek-next:hover {{ opacity: 0.55; }}
+  .peek-prev img, .peek-next img {{
+    width: 100%; height: 100%; object-fit: cover;
+    border-radius: 12px;
+  }}
+  .peek-prev .peek-label, .peek-next .peek-label {{
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 16px 12px 14px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+    font-family: 'Playfair Display', serif; font-size: 13px;
+    line-height: 1.3; color: #f0ece4;
+    border-radius: 0 0 12px 12px;
   }}
 }}
 
-/* Wider desktop: bigger frame + story info sidebar */
-@media (min-width: 900px) {{
-  .stories-bar {{
-    max-width: 720px; width: 720px;
-  }}
-  .feed {{
-    max-width: 720px;
-  }}
+/* ─── Ultra-wide: larger panels ─── */
+@media (min-width: 1200px) {{
+  .stories-bar {{ max-width: 900px; width: 900px; }}
+  .feed {{ max-width: 900px; }}
   .story-viewer .story-frame {{
-    width: 400px; height: min(94vh, 710px);
+    width: 380px; height: min(94vh, 675px);
+  }}
+  .peek-prev, .peek-next {{
+    width: 240px; height: min(80vh, 540px);
   }}
 }}
 
@@ -619,6 +661,10 @@ html, body {{
 </div>
 
 <div class="story-viewer" id="storyViewer" onclick="if(event.target===this)closeStory()">
+  <div class="peek-prev" id="peekPrev" onclick="peekPrevClick()">
+    <img src="" alt="">
+    <div class="peek-label"></div>
+  </div>
   <div class="story-frame">
     <div class="progress-bar-container" id="progressBars"></div>
     <div class="slide-counter" id="slideCounter"></div>
@@ -626,6 +672,10 @@ html, body {{
     <div id="cardsContainer" style="flex:1;display:flex;flex-direction:column;"></div>
     <div class="nav-left" onclick="prevCard()"></div>
     <div class="nav-right" onclick="nextCard()"></div>
+  </div>
+  <div class="peek-next" id="peekNext" onclick="peekNextClick()">
+    <img src="" alt="">
+    <div class="peek-label"></div>
   </div>
 </div>
 
@@ -917,11 +967,43 @@ function shareStory(idx) {{
   }}
 }}
 
+function updatePeekPanels(idx) {{
+  const prev = document.getElementById('peekPrev');
+  const next = document.getElementById('peekNext');
+  if (!prev || !next) return;
+
+  if (idx > 0) {{
+    const ps = stories[idx - 1];
+    prev.querySelector('img').src = 'images/' + (ps.images[0] || '');
+    prev.querySelector('.peek-label').textContent = ps.title;
+    prev.style.visibility = 'visible';
+  }} else {{
+    prev.style.visibility = 'hidden';
+  }}
+
+  if (idx < stories.length - 1) {{
+    const ns = stories[idx + 1];
+    next.querySelector('img').src = 'images/' + (ns.images[0] || '');
+    next.querySelector('.peek-label').textContent = ns.title;
+    next.style.visibility = 'visible';
+  }} else {{
+    next.style.visibility = 'hidden';
+  }}
+}}
+
+function peekPrevClick() {{
+  if (curStory > 0) openStory(curStory - 1);
+}}
+function peekNextClick() {{
+  if (curStory < stories.length - 1) openStory(curStory + 1);
+}}
+
 function openStory(idx) {{
   curStory = idx;
   buildCards(idx);
   document.getElementById('storyViewer').classList.add('active');
   showCard(0);
+  updatePeekPanels(idx);
   document.getElementById('thumb-' + idx)?.classList.add('viewed');
 }}
 
