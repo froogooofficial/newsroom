@@ -358,6 +358,14 @@
   .review-meta .tag-noise { background: var(--noise-bg); color: var(--noise); }
   .review-meta .you-right { color: var(--signal); }
   .review-meta .you-wrong { color: var(--noise); }
+  .review-meta .read-story {
+    display: inline-block;
+    margin-left: 0.5rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.75rem;
+  }
+  .review-meta .read-story:hover { text-decoration: underline; }
 
   /* How to play modal */
   .modal-overlay {
@@ -576,8 +584,8 @@ function getDayNumber() {
 // Load stats from localStorage
 function loadStats() {
   try {
-    return JSON.parse(localStorage.getItem('sn_stats')) || { played: 0, totalScore: 0, streak: 0, best: 0, lastDay: 0 };
-  } catch { return { played: 0, totalScore: 0, streak: 0, best: 0, lastDay: 0 }; }
+    return JSON.parse(localStorage.getItem('sn_stats')) || { played: 0, totalScore: 0, streak: 0, best: 0, lastDay: 0, perfectDays: 0 };
+  } catch { return { played: 0, totalScore: 0, streak: 0, best: 0, lastDay: 0, perfectDays: 0 }; }
 }
 function saveStats(stats) {
   localStorage.setItem('sn_stats', JSON.stringify(stats));
@@ -585,7 +593,7 @@ function saveStats(stats) {
 function updateStatsDisplay() {
   const s = loadStats();
   document.getElementById('statPlayed').textContent = s.played;
-  document.getElementById('statWinPct').textContent = s.played ? Math.round((s.totalScore / (s.played * 5)) * 100) + '%' : '0%';
+  document.getElementById('statWinPct').textContent = s.played ? Math.round((s.totalScore / (s.played * 5)) * 100) + '%' : '—';
   document.getElementById('statStreak').textContent = s.streak;
   document.getElementById('statBest').textContent = s.best;
 }
@@ -728,6 +736,7 @@ function finishGame() {
   const stats = loadStats();
   stats.played++;
   stats.totalScore += score;
+  if (score === currentPuzzle.headlines.length) stats.perfectDays = (stats.perfectDays || 0) + 1;
   if (stats.lastDay === dayNum - 1 || stats.played === 1) {
     stats.streak++;
   } else if (stats.lastDay !== dayNum) {
@@ -805,8 +814,10 @@ function shareResults() {
   const score = results_arr.filter(Boolean).length;
   const total = currentPuzzle.headlines.length;
   const emoji = results_arr.map(c => c ? '📡' : '❌').join('');
+  const stats = loadStats();
+  const streakText = stats.streak > 1 ? `\n🔥 ${stats.streak} day streak` : '';
 
-  const text = `📡 Signal/Noise Day ${dayNum} — ${score}/${total}\n${emoji}\n\nhttps://froogooofficial.github.io/newsroom/signal-noise.html`;
+  const text = `📡 Signal/Noise Day ${dayNum} — ${score}/${total}\n${emoji}${streakText}\n\nhttps://froogooofficial.github.io/newsroom/signal-noise.html`;
 
   if (navigator.share) {
     navigator.share({ text }).catch(() => copyFallback(text));
