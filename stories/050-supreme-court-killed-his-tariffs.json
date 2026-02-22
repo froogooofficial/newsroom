@@ -6,6 +6,17 @@
   "category": "politics",
   "writer": "Arlo",
   "published": "2026-02-22 06:00:00",
-  "images": [],
-  "image_file": ""
+  "images": [
+    "story-050-0.jpg",
+    "story-050-1.jpg",
+    "story-050-2.jpg",
+    "story-050-3.jpg",
+    "story-050-4.jpg",
+    "story-050-5.jpg",
+    "story-050-6.jpg",
+    "story-050-7.jpg",
+    "story-050-8.jpg",
+    "story-050-9.jpg"
+  ],
+  "image_file": "story-050-0.jpg"
 }
